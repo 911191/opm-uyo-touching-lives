@@ -1,0 +1,24 @@
+
+/* ===== V5 PLATFORM ===== */
+.v5-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.v5-card{background:#fff;border:1px solid #dfe7f2;border-radius:16px;padding:26px;box-shadow:0 8px 25px rgba(20,35,61,.06)}
+.v5-card h3{margin-top:8px;color:var(--blue,#06265f)}
+.v5-badge{display:inline-block;padding:5px 10px;border-radius:999px;background:#eaf1ff;color:#174b96;font-size:11px;font-weight:900;letter-spacing:.4px}
+.v5-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.v5-metric{background:linear-gradient(135deg,#06265f,#0b65bb);color:#fff;border-radius:14px;padding:22px}
+.v5-metric strong{display:block;font-size:30px;color:#ffdc70}
+.v5-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.v5-step{background:#fff;border:1px solid #dfe7f2;border-radius:14px;padding:20px}
+.v5-step b{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#d9aa32;color:#06265f;margin-bottom:10px}
+.v5-form{background:#f5f8fc;border-radius:16px;padding:28px}
+.v5-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.v5-form-grid .full{grid-column:1/-1}
+.v5-form label{font-weight:800;font-size:13px}
+.v5-form input,.v5-form textarea,.v5-form select{width:100%;padding:13px;border:1px solid #d5deea;border-radius:8px;font:inherit;margin-top:6px}
+.v5-form textarea{min-height:130px}
+.v5-notice{padding:15px 18px;border-left:5px solid #d9aa32;background:#fff8e5;border-radius:8px;margin-bottom:18px}
+.v5-callout{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:28px;border-radius:16px;background:linear-gradient(110deg,#06265f,#0a65bb);color:#fff}
+.v5-callout p{color:#dce8ff}
+.v5-float{position:fixed;right:18px;bottom:18px;z-index:100;background:#19a85b;color:#fff;padding:13px 17px;border-radius:999px;font-weight:900;box-shadow:0 10px 30px #0003}
+@media(max-width:850px){.v5-grid{grid-template-columns:1fr 1fr}.v5-metrics{grid-template-columns:1fr 1fr}.v5-steps{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.v5-grid,.v5-metrics,.v5-steps,.v5-form-grid{grid-template-columns:1fr}.v5-form-grid .full{grid-column:auto}.v5-callout{display:block}}
