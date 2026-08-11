@@ -239,3 +239,12 @@ button{
 .v5-float{position:fixed;right:18px;bottom:18px;z-index:100;background:#19a85b;color:#fff;padding:13px 17px;border-radius:999px;font-weight:900;box-shadow:0 10px 30px #0003}
 @media(max-width:850px){.v5-grid{grid-template-columns:1fr 1fr}.v5-metrics{grid-template-columns:1fr 1fr}.v5-steps{grid-template-columns:1fr 1fr}}
 @media(max-width:540px){.v5-grid,.v5-metrics,.v5-steps,.v5-form-grid{grid-template-columns:1fr}.v5-form-grid .full{grid-column:auto}.v5-callout{display:block}}
+    /* HERO BUTTONS */
+.hero a{
+  display:inline-block;
+  margin:8px 10px 8px 0;
+  padding:12px 18px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:700;
+}
