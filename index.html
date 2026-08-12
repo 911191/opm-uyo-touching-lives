@@ -1,1 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="OPM UYO TOUCHING LIVES — humanitarian service, practical skills training and community empowerment.">
+<meta name="theme-color" content="#08295c">
+<title>OPM UYO TOUCHING LIVES</title>
+<style>
+:root{--navy:#08295c;--blue:#1264bd;--gold:#f5cf55;--ink:#12213b;--muted:#5d6a7e;--soft:#f5f7fb;--line:#e3e8f0}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.6}body.lock{overflow:hidden}a{text-decoration:none;color:inherit}button{font:inherit}
+.top{background:var(--navy);color:white;text-align:center;padding:10px 14px;font-size:14px}.top a{color:white}.nav{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);min-height:80px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:12px}.mark{width:50px;height:50px;border-radius:13px;background:var(--navy);color:white;display:grid;place-items:center;font-weight:900}.brand b{color:var(--navy);font-size:20px;line-height:1.05}.brand b span{display:block}
+.menu{width:54px;height:54px;border:2px solid var(--navy);border-radius:14px;background:white;cursor:pointer;font-size:27px;color:var(--navy)}
+.drawer-bg{position:fixed;inset:0;background:#03132aaa;z-index:50;opacity:0;visibility:hidden;transition:.25s}.drawer-bg.open{opacity:1;visibility:visible}.drawer{position:absolute;right:0;top:0;width:min(390px,88vw);height:100%;background:white;padding:24px;overflow:auto;transform:translateX(100%);transition:.3s}.open .drawer{transform:translateX(0)}.drawer-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:15px}.close{width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:white;font-size:28px;color:var(--navy)}.link{display:block;padding:15px 6px;border-bottom:1px solid var(--line);font-weight:800;color:var(--ink)}.link:hover{color:var(--blue)}.note{margin-top:20px;padding:16px;background:var(--navy);border-radius:15px;color:white;font-size:14px}
+.hero{background:linear-gradient(135deg,#061f4a,#0c3b80 60%,#0b5a9e);color:white}.hero-in{max-width:1180px;margin:auto;padding:70px 18px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}.eyebrow,.kicker{color:var(--gold);font-weight:900;text-transform:uppercase;letter-spacing:1.2px;font-size:14px}.hero h1{font-size:clamp(45px,7vw,78px);line-height:.98;letter-spacing:-2px;margin:12px 0 24px}.hero p{font-size:19px;max-width:650px;color:#eef5ff;margin-bottom:26px}.actions{display:flex;gap:12px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;border-radius:12px;font-weight:900}.gold{background:var(--gold);color:#10264c}.light{background:white;color:var(--navy)}.outline{border:2px solid white;color:white}.hero-img{height:380px;border-radius:27px;overflow:hidden;position:relative;box-shadow:0 25px 60px #0004}.hero-img img{width:100%;height:100%;object-fit:cover}.hero-img div{position:absolute;bottom:20px;left:20px;color:white;font-weight:900;font-size:18px}
+.section{max-width:1180px;margin:auto;padding:70px 18px}.kicker{color:var(--blue);margin-bottom:8px}.section h2{font-size:clamp(30px,5vw,48px);line-height:1.08;color:var(--navy);margin-bottom:10px}.intro{color:var(--muted);max-width:730px;font-size:17px;margin-bottom:28px}
+.gallery{background:var(--soft)}.slider{position:relative;max-width:1180px;margin:auto;padding:0 18px}.slide{display:none;position:relative;height:420px;border-radius:26px;overflow:hidden;background:#08295c}.slide.active{display:block}.slide img{width:100%;height:100%;object-fit:cover}.slide:after{content:"";position:absolute;inset:40% 0 0;background:linear-gradient(transparent,#000b)}.caption{position:absolute;z-index:2;left:25px;right:25px;bottom:22px;color:white}.caption h3{font-size:27px}.arrows{position:absolute;z-index:3;left:32px;right:32px;top:50%;display:flex;justify-content:space-between;transform:translateY(-50%)}.arrow{width:44px;height:44px;border:0;border-radius:50%;background:#fff;color:var(--navy);font-size:28px;cursor:pointer}.dots{text-align:center;padding-top:13px}.dot{display:inline-block;width:9px;height:9px;border:0;border-radius:50%;background:#bbc5d4;margin:4px;cursor:pointer}.dot.active{background:var(--blue)}
+.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.impact{border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 8px 28px #0c274e0d}.impact strong{display:block;font-size:35px;color:var(--navy);line-height:1;margin-bottom:8px}.impact span{color:var(--muted);font-weight:700}
+.soft{background:var(--soft)}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:white;border:1px solid var(--line);border-radius:20px;padding:24px}.card h3{color:var(--navy);margin-bottom:7px}.card p{color:var(--muted)}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}.bluebox{background:linear-gradient(135deg,var(--navy),var(--blue));color:white;border-radius:24px;padding:32px}.bluebox h3{font-size:28px;margin-bottom:10px}.bluebox li{margin:9px 0 0 20px;color:#eaf3ff}
+.programs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.program{padding:18px;border:1px solid var(--line);background:white;border-radius:15px;font-weight:800;color:var(--navy)}
+.cta{background:linear-gradient(135deg,#071f49,#0d5ea7);color:white;text-align:center}.cta h2{color:white}.cta .intro{color:#e8f2ff;margin-left:auto;margin-right:auto}.cta .actions{justify-content:center}
+footer{background:#041936;color:#c7d7ed;padding:38px 18px}.foot{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px}.foot h3{color:white;margin-bottom:9px}.foot a{display:block;margin:5px 0}.copy{text-align:center;max-width:1180px;margin:24px auto 0;padding-top:18px;border-top:1px solid #ffffff20;font-size:13px}
+@media(max-width:850px){.hero-in,.about{grid-template-columns:1fr}.impact-grid{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:1fr}.programs{grid-template-columns:repeat(2,1fr)}.foot{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.brand b{font-size:16px}.mark{width:43px;height:43px}.menu{width:48px;height:48px}.hero-in{padding:48px 16px}.hero h1{font-size:48px}.hero p{font-size:16px}.hero-img{height:250px}.section{padding:54px 16px}.slider{padding:0 16px}.slide{height:300px}.caption h3{font-size:21px}.impact-grid{gap:9px}.impact{padding:19px 14px}.impact strong{font-size:28px}.programs{grid-template-columns:1fr}.foot{grid-template-columns:1fr}.btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="top"><a href="tel:08138827298">08138827298</a> <span>•</span> <a href="mailto:touchinglivesopm@gmail.com">touchinglivesopm@gmail.com</a></div>
 
+<header class="nav">
+<a class="brand" href="#home"><div class="mark">TL</div><b>OPM UYO<span>TOUCHING LIVES</span></b></a>
+<button class="menu" id="menuBtn" aria-label="Open navigation" aria-expanded="false">☰</button>
+</header>
+
+<div class="drawer-bg" id="drawerBg">
+<div class="drawer">
+<div class="drawer-head"><strong>Navigation</strong><button class="close" id="closeBtn">×</button></div>
+<a class="link" href="#home">Home</a>
+<a class="link" href="#about">About Us</a>
+<a class="link" href="#programs">Our Programs</a>
+<a class="link" href="apply.html">Training Application</a>
+<a class="link" href="#mobile-training">Mobile Training</a>
+<a class="link" href="#impact">Our Impact & Achievements</a>
+<a class="link" href="partner-request.html">Partnership / CSR</a>
+<a class="link" href="#volunteer">Volunteer</a>
+<a class="link" href="#contact">Contact Us</a>
+<div class="note"><b>OPM UYO TOUCHING LIVES</b><br>Empowering lives through practical skills, opportunity creation and community empowerment.</div>
+</div>
+</div>
+
+<main id="home">
+<section class="hero">
+<div class="hero-in">
+<div>
+<div class="eyebrow">Humanitarian • Skills • Empowerment</div>
+<h1>Empowering Lives.<br>Building Futures.</h1>
+<p>OPM UYO TOUCHING LIVES is committed to practical skills, opportunity creation and community empowerment.</p>
+<div class="actions"><a class="btn gold" href="#programs">Explore Our Programs</a><a class="btn outline" href="partner-request.html">Partner With Us</a></div>
+</div>
+<div class="hero-img"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=85" alt="Community members working together"><div>Skills • Opportunity • Community Impact</div></div>
+</div>
+</section>
+
+<section class="gallery" id="gallery">
+<div class="section" style="padding-bottom:20px">
+<div class="kicker">See the work</div><h2>Training & Achievement Highlights</h2>
+<p class="intro">A visual look at practical training, empowerment and community-focused activities. Replace the sample images below with your actual OPM UYO TOUCHING LIVES photographs.</p>
+</div>
+<div class="slider">
+<article class="slide active"><img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=85" alt="Training"><div class="caption"><h3>Practical Skills Training</h3><p>Creating opportunities through hands-on learning.</p></div></article>
+<article class="slide"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=85" alt="Skills teamwork"><div class="caption"><h3>Empowerment Through Skills</h3><p>Helping people develop useful, income-generating skills.</p></div></article>
+<article class="slide"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=85" alt="Community training"><div class="caption"><h3>Community Impact</h3><p>Taking practical empowerment closer to communities.</p></div></article>
+<article class="slide"><img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1400&q=85" alt="Team learning"><div class="caption"><h3>Building Futures</h3><p>Training today for stronger livelihoods tomorrow.</p></div></article>
+<div class="arrows"><button class="arrow" id="prev">‹</button><button class="arrow" id="next">›</button></div>
+<div class="dots" id="dots"></div>
+</div>
+</section>
+
+<section id="impact"><div class="section"><div class="kicker">Our impact</div><h2>Making a Difference</h2><p class="intro">Focused on practical empowerment, service and creating opportunities for people to grow.</p>
+<div class="impact-grid"><div class="impact"><strong>5+</strong><span>Years of Service</span></div><div class="impact"><strong>1,000+</strong><span>People Trained</span></div><div class="impact"><strong>9+</strong><span>Skill Areas</span></div><div class="impact"><strong>Mobile</strong><span>Community Training Vision</span></div></div></div></section>
+
+<section class="soft"><div class="section"><div class="kicker">Highlights</div><h2>What We Do</h2><div class="cards">
+<div class="card"><h3>Free Skills Empowerment</h3><p>Practical training designed to help beneficiaries gain useful skills and create opportunities.</p></div>
+<div class="card"><h3>Community Outreach</h3><p>Expanding access to training and empowerment through community-focused activities.</p></div>
+<div class="card"><h3>Opportunity Creation</h3><p>Connecting skills, people and partnerships to help build sustainable livelihoods.</p></div>
+</div></div></section>
+
+<section id="about"><div class="section"><div class="about"><div><div class="kicker">About us</div><h2>Touching Lives Through Practical Empowerment</h2><p class="intro">OPM UYO TOUCHING LIVES is a humanitarian and skills-empowerment initiative focused on practical learning, service, opportunity creation and community development.</p></div>
+<div class="bluebox"><h3>Our focus</h3><p>We believe practical skills can open doors to independence, confidence and opportunity.</p><ul><li>Skills acquisition</li><li>Community empowerment</li><li>Mobile training opportunities</li><li>Partnership and CSR collaboration</li><li>Volunteer and community support</li></ul></div></div></div></section>
+
+<section class="soft" id="programs"><div class="section"><div class="kicker">Skills</div><h2>Our Programs</h2><p class="intro">Explore practical skill areas offered through the Touching Lives empowerment initiative.</p>
+<div class="programs"><div class="program">Fashion & Design</div><div class="program">Catering</div><div class="program">Cosmetology</div><div class="program">Closure Ventilation</div><div class="program">Paint Making</div><div class="program">Computer Training</div><div class="program">Crocheting & Shoe Making</div><div class="program">Fascinators</div><div class="program">Welding & Fabrication</div></div></div></section>
+
+<section id="mobile-training"><div class="section"><div class="kicker">Beyond one location</div><h2>Mobile Training</h2><p class="intro">Our vision is to take practical skills training closer to communities so that more people can benefit without being limited by location.</p><div class="bluebox"><h3>Taking empowerment to the people</h3><p>Mobile training can help reach communities, organize practical sessions and expand the impact of the Touching Lives initiative.</p></div></div></section>
+
+<section class="soft" id="volunteer"><div class="section"><div class="kicker">Get involved</div><h2>Volunteer & Support</h2><p class="intro">People and organizations can support approved activities through volunteering, resources, expertise and partnership.</p><div class="actions"><a class="btn gold" href="partner-request.html">Partnership / CSR</a><a class="btn light" style="background:var(--navy);color:white" href="mailto:touchinglivesopm@gmail.com">Contact Us</a></div></div></section>
+
+<section class="cta" id="contact"><div class="section"><div class="kicker">Join the movement</div><h2>Help Us Touch More Lives</h2><p class="intro">Whether you want to apply for training, partner with the initiative or support community empowerment, there is a place for you.</p><div class="actions"><a class="btn gold" href="apply.html">Apply for Training</a><a class="btn light" href="partner-request.html">Partner With Us</a></div></div></section>
+</main>
+
+<footer><div class="foot"><div><h3>OPM UYO TOUCHING LIVES</h3><p>Empowering lives. Building futures. Touching communities.</p></div><div><h3>Quick Access</h3><a href="#about">About Us</a><a href="#programs">Our Programs</a><a href="#impact">Our Impact</a><a href="apply.html">Training Application</a></div><div><h3>Contact</h3><a href="tel:08138827298">08138827298</a><a href="mailto:touchinglivesopm@gmail.com">touchinglivesopm@gmail.com</a><p>Olusegun Obasanjo Way, Opposite Pepsi Junction, Uyo, Akwa Ibom State, Nigeria.</p></div></div><div class="copy">© <span id="year"></span> OPM UYO TOUCHING LIVES. All rights reserved.</div></footer>
+
+<script>
+const bg=document.getElementById('drawerBg'),mb=document.getElementById('menuBtn'),cb=document.getElementById('closeBtn');
+function openMenu(){bg.classList.add('open');mb.setAttribute('aria-expanded','true');document.body.classList.add('lock')}
+function closeMenu(){bg.classList.remove('open');mb.setAttribute('aria-expanded','false');document.body.classList.remove('lock')}
+mb.onclick=openMenu;cb.onclick=closeMenu;bg.onclick=e=>{if(e.target===bg)closeMenu()};document.querySelectorAll('.link').forEach(a=>a.onclick=closeMenu);document.onkeydown=e=>{if(e.key==='Escape')closeMenu()};
+
+const slides=[...document.querySelectorAll('.slide')],dots=document.getElementById('dots');let n=0,t;
+slides.forEach((_,i)=>{const d=document.createElement('button');d.className='dot'+(i===0?' active':'');d.setAttribute('aria-label','Slide '+(i+1));d.onclick=()=>show(i);dots.appendChild(d)});
+const ds=[...dots.children];
+function show(i){n=(i+slides.length)%slides.length;slides.forEach((s,j)=>s.classList.toggle('active',j===n));ds.forEach((d,j)=>d.classList.toggle('active',j===n))}
+function start(){t=setInterval(()=>show(n+1),5000)}function restart(){clearInterval(t);start()}
+document.getElementById('next').onclick=()=>{show(n+1);restart()};document.getElementById('prev').onclick=()=>{show(n-1);restart()};start();
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+  </html>
