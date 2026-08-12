@@ -267,3 +267,18 @@ a[href="partner.html"]{
   margin-right:12px;
   margin-bottom:8px;
 }
+    .v5-step h3,
+.v5-step p{
+  display:block;
+  margin:0 0 10px 0;
+}
+
+.v5-step p{
+  margin-bottom:0;
+}
+
+.v5-steps a{
+  display:inline-block;
+  margin-right:14px;
+  margin-bottom:10px;
+}
