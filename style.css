@@ -248,3 +248,9 @@ button{
   text-decoration:none;
   font-weight:700;
 }
+    a[href="programs.html"],
+a[href="partner.html"]{
+  display:inline-block;
+  margin-right:12px;
+  margin-bottom:8px;
+}
