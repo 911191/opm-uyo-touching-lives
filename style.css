@@ -302,3 +302,46 @@ a[href="partner.html"]{
   margin-right:14px;
   margin-bottom:10px;
 }
+    /* =====================================================
+   FINAL FIX — TRAINING APPLICATION CARD
+   ===================================================== */
+
+.v5-card.training-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.v5-card.training-card .content {
+  display: block !important;
+  width: 100% !important;
+  flex: none !important;
+  box-sizing: border-box !important;
+}
+
+.v5-card.training-card .content h3 {
+  display: block !important;
+  width: 100% !important;
+  margin: 8px 0 12px 0 !important;
+  padding: 0 !important;
+  line-height: 1.4 !important;
+  white-space: normal !important;
+}
+
+.v5-card.training-card .content p {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 0 20px 0 !important;
+  padding: 0 !important;
+  line-height: 1.6 !important;
+  white-space: normal !important;
+}
+
+.v5-card.training-card .btn {
+  display: inline-block !important;
+  width: auto !important;
+  margin: 0 !important;
+  white-space: normal !important;
+}
