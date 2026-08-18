@@ -1,0 +1,1 @@
+Upload the contents of this folder to the GitHub repository root. Do not upload the ZIP itself. Preserve your existing training-*.png files. Review the forms before collecting real data.

@@ -175,6 +175,9 @@ footer a:hover{color:var(--gold)}
   .footer-grid{grid-template-columns:1fr;gap:25px}
   .donate h2{font-size:32px}
 }
+
+/* V2 LATEST NEWS & EVENTS */
+.news-section{background:#f5f7fb}.news-track-wrap{display:flex;align-items:center;gap:10px}.news-track{display:flex;gap:18px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;flex:1;padding:6px}.news-track::-webkit-scrollbar{display:none}.news-card{flex:0 0 min(360px,82vw);background:#fff;border:1px solid #e4e7ec;border-radius:15px;overflow:hidden;box-shadow:0 8px 25px #071d5214}.news-card img{width:100%;height:190px;object-fit:cover;background:#e9eef7}.news-body{padding:19px}.news-body small{color:#e31b23;font-weight:900}.news-body h3{color:#071d52;margin:5px 0}.news-body p{color:#667085}.news-body a{display:inline-block;margin-top:9px;color:#e31b23;font-weight:900}.news-arrow{width:45px;height:45px;flex:0 0 45px;border:0;border-radius:50%;background:#071d52;color:#fff;font-size:30px;cursor:pointer}
 </style>
 </head>
 
@@ -214,9 +217,10 @@ footer a:hover{color:var(--gold)}
     <a class="nav-link" href="#programs">Our Programs</a>
     <a class="nav-link" href="apply.html">Training Application</a>
     <a class="nav-link" href="#training">Training Gallery</a>
+    <a class="nav-link" href="#news">Latest News & Events</a>
     <a class="nav-link" href="#mobile-training">Mobile Training</a>
     <a class="nav-link" href="#impact">Our Impact</a>
-    <a class="nav-link" href="partner-request.html">Partnership / CSR</a>
+    <a class="nav-link" href="partnership.html">Partnership / CSR</a>
     <a class="nav-link donate-menu" href="donate.html">♥ DONATE / SUPPORT US</a>
     <a class="nav-link" href="#volunteer">Volunteer</a>
     <a class="nav-link" href="#contact">Contact Us</a>
@@ -275,9 +279,6 @@ footer a:hover{color:var(--gold)}
       <div class="training-photo"><img src="training-8.png" alt="Training 8"><div class="training-label">Humanitarian Outreach</div></div>
       <div class="training-photo"><img src="training-9.png" alt="Training 9"><div class="training-label">Community Engagement</div></div>
       <div class="training-photo"><img src="training-10.png" alt="Training 10"><div class="training-label">Partnership & Advocacy</div></div>
-      <div class="training-photo"><img src="training-11.png" alt="Training 11"><div class="training-label">Closure Ventilation Training</div></div>
-      <div class="training-photo"><img src="training-12.png" alt="Training 12"><div class="training-label">partnership</div></div> 
-      <div class="training-photo"><img src="training-13.png" alt="Training 13"><div class="training-label">Training & Certification </div></div>
     </div>
   </div>
 </section>
@@ -340,13 +341,30 @@ footer a:hover{color:var(--gold)}
   </div>
 </section>
 
+
+<section id="news" class="news-section">
+  <div class="section">
+    <h2 class="section-title">Latest News & Events</h2>
+    <p class="section-intro">Stay updated with training activities, announcements and upcoming events. Swipe horizontally or use the arrows.</p>
+    <div class="news-track-wrap">
+      <button class="news-arrow" id="newsPrev" type="button" aria-label="Previous news">‹</button>
+      <div class="news-track" id="newsTrack">
+        <article class="news-card"><img src="news-1.png" alt="Latest OPM UYO TOUCHING LIVES news"><div class="news-body"><small>NEWS • TRAINING</small><h3>Skills Training & Empowerment</h3><p>Follow our latest practical training activities and community impact.</p><a href="news.html">View update →</a></div></article>
+        <article class="news-card"><img src="news-2.png" alt="Community event"><div class="news-body"><small>EVENT</small><h3>Community Outreach</h3><p>See announcements and upcoming humanitarian activities.</p><a href="news.html">View update →</a></div></article>
+        <article class="news-card"><img src="news-3.png" alt="Community update"><div class="news-body"><small>UPDATE</small><h3>New Opportunities</h3><p>Discover new training, partnership and volunteer opportunities.</p><a href="news.html">View update →</a></div></article>
+      </div>
+      <button class="news-arrow" id="newsNext" type="button" aria-label="Next news">›</button>
+    </div>
+  </div>
+</section>
+
 <section class="donate" id="donate">
   <div class="section">
     <h2>Help Us Touch More Lives</h2>
     <p>Your support can help expand practical skills training, community outreach and empowerment opportunities.</p>
     <div class="hero-buttons" style="justify-content:center">
       <a href="donate.html" class="btn btn-gold">♥ Donate / Support Us</a>
-      <a href="partner-request.html" class="btn btn-white">Partner With Us</a>
+      <a href="partnership.html" class="btn btn-white">Partner With Us</a>
     </div>
   </div>
 </section>
@@ -356,7 +374,7 @@ footer a:hover{color:var(--gold)}
     <h2 class="section-title">Volunteer & Support</h2>
     <p class="section-intro">People and organizations can support approved activities through volunteering, resources, expertise and partnership.</p>
     <div class="hero-buttons" style="justify-content:center">
-      <a class="btn btn-red" href="partner-request.html">Partnership / CSR</a>
+      <a class="btn btn-red" href="partnership.html">Partnership / CSR</a>
       <a class="btn btn-gold" href="mailto:touchinglivesopm@gmail.com">Contact Us</a>
     </div>
   </div>
@@ -402,7 +420,7 @@ footer a:hover{color:var(--gold)}
       <a href="#impact">Our Impact</a>
       <a href="#training">Training Gallery</a>
       <a href="apply.html">Training Application</a>
-      <a href="partner-request.html">Partnership / CSR</a>
+      <a href="partnership.html">Partnership / CSR</a>
       <a class="footer-donate" href="donate.html">♥ Donate / Support Us</a>
     </div>
 
@@ -522,11 +540,10 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 </script>
-<!-- Latest News & Events -->
-<section>
-    <!-- news/events slider code goes here -->
-</section>
 
+
+<script>
+(function(){const t=document.getElementById('newsTrack');if(!t)return;const step=380;document.getElementById('newsPrev').onclick=()=>t.scrollBy({left:-step,behavior:'smooth'});document.getElementById('newsNext').onclick=()=>t.scrollBy({left:step,behavior:'smooth'});setInterval(()=>{if(t.scrollLeft+t.clientWidth>=t.scrollWidth-5)t.scrollTo({left:0,behavior:'smooth'});else t.scrollBy({left:step,behavior:'smooth'})},6000)})();
+</script>
 </body>
 </html>
-
