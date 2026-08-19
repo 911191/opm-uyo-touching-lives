@@ -1,1 +1,1 @@
-Upload the contents of this folder to the GitHub repository root. Do not upload the ZIP itself. Preserve your existing training-*.png files. Review the forms before collecting real data.
+V2.1: Upload/replace the V2.0 site files with this revision, keep existing training/news image files, and add the two leadership photos included here. Do not delete existing media. Test the homepage, menu, gallery and application form before the Admin Dashboard is added.

@@ -133,6 +133,12 @@ footer a:hover{color:var(--gold)}
 /* TOP BUTTON */
 .top-button{position:fixed;right:20px;bottom:20px;width:48px;height:48px;border:0;border-radius:50%;background:#fff;color:var(--navy);font-size:24px;box-shadow:0 5px 20px #0003;cursor:pointer;z-index:50}
 
+
+/* V2.1 LEADERSHIP */
+.leadership{background:#fff}.leadership-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:900px;margin:auto}.leader-card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(7,29,82,.10);text-align:center}.leader-card img{width:100%;height:330px;object-fit:cover;display:block}.leader-card:first-child img{object-position:center 28%}.leader-card h3{color:var(--navy);font-size:23px;margin:18px 12px 4px}.leader-card p{color:var(--red);font-weight:900;margin:0 12px 20px}.featured-note{color:var(--muted);text-align:center;max-width:760px;margin:-8px auto 28px}.news-video{width:100%;height:190px;object-fit:cover;background:#071d52;display:block}.featured-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.featured-card{height:220px;border-radius:14px;overflow:hidden;position:relative;background:#123f91}.featured-card img{width:100%;height:100%;object-fit:cover;transition:.35s}.featured-card:hover img{transform:scale(1.05)}.featured-card span{position:absolute;left:0;right:0;bottom:0;padding:13px;color:#fff;background:linear-gradient(transparent,#000c);font-weight:900}
+@media(max-width:900px){.leadership-grid{grid-template-columns:1fr}.featured-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:550px){.leader-card img{height:300px}.featured-grid{grid-template-columns:1fr 1fr}.featured-card{height:180px}}
+
 /* MOBILE */
 @media(max-width:900px){
   .topbar{justify-content:center;text-align:center}
@@ -213,10 +219,10 @@ footer a:hover{color:var(--gold)}
       <button class="close" id="closeBtn" type="button" aria-label="Close menu">×</button>
     </div>
     <a class="nav-link" href="#home">Home</a>
-    <a class="nav-link" href="#about">About Us</a>
+    <a class="nav-link" href="about.html">About Us & Achievements</a>
     <a class="nav-link" href="#programs">Our Programs</a>
     <a class="nav-link" href="apply.html">Training Application</a>
-    <a class="nav-link" href="#training">Training Gallery</a>
+    <a class="nav-link" href="gallery.html">Gallery</a>
     <a class="nav-link" href="#news">Latest News & Events</a>
     <a class="nav-link" href="#mobile-training">Mobile Training</a>
     <a class="nav-link" href="#impact">Our Impact</a>
@@ -251,6 +257,34 @@ footer a:hover{color:var(--gold)}
   <div class="hero-dots" id="heroDots"></div>
 </section>
 
+<section id="news" class="news-section">
+  <div class="section">
+    <h2 class="section-title">Latest News & Updates</h2>
+    <p class="section-intro">See what is trending now — training activities, humanitarian updates, announcements, events and videos.</p>
+    <div class="news-track-wrap">
+      <button class="news-arrow" id="newsPrev" type="button" aria-label="Previous news">‹</button>
+      <div class="news-track" id="newsTrack">
+        <article class="news-card"><img src="news-1.png" alt="Latest OPM UYO TOUCHING LIVES update"><div class="news-body"><small>UPDATE</small><h3>Skills Training & Empowerment</h3><p>Follow the latest practical training and community empowerment activities.</p><a href="news.html">View update →</a></div></article>
+        <article class="news-card"><img src="news-2.png" alt="Community event update"><div class="news-body"><small>EVENT</small><h3>Community Outreach & Events</h3><p>Stay informed about upcoming activities and humanitarian outreach.</p><a href="news.html">View update →</a></div></article>
+        <article class="news-card"><div class="news-video"><div style="height:100%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:20px">▶ VIDEO UPDATE</div></div><div class="news-body"><small>VIDEO</small><h3>Latest Video Update</h3><p>Video news and event highlights can be published here.</p><a href="news.html">Watch updates →</a></div></article>
+        <article class="news-card"><img src="news-3.png" alt="Training opportunity update"><div class="news-body"><small>OPPORTUNITY</small><h3>New Training Opportunities</h3><p>Discover current skills training and participation opportunities.</p><a href="news.html">Learn more →</a></div></article>
+      </div>
+      <button class="news-arrow" id="newsNext" type="button" aria-label="Next news">›</button>
+    </div>
+  </div>
+</section>
+
+<section class="leadership" id="leadership">
+  <div class="section">
+    <h2 class="section-title">Leadership & Inspiration</h2>
+    <p class="featured-note">The people and leadership inspiration behind the mission of OPM UYO TOUCHING LIVES.</p>
+    <div class="leadership-grid">
+      <article class="leader-card"><img src="ambassador-john-michael.webp" alt="Ambassador John Michael"><h3>Ambassador John Michael</h3><p>OPM UYO TOUCHING LIVES</p></article>
+      <article class="leader-card"><img src="hrm-apostle-chibuzor-gift-chinyere.jpg" alt="HRM Apostle Chibuzor Gift Chinyere"><h3>HRM Apostle Chibuzor Gift Chinyere</h3><p>G.O. OPM WORLDWIDE</p></article>
+    </div>
+  </div>
+</section>
+
 <section class="impact" id="impact">
   <div class="section">
     <h2 class="section-title">Our Impact</h2>
@@ -264,44 +298,17 @@ footer a:hover{color:var(--gold)}
   </div>
 </section>
 
-<section class="training" id="training">
+<section class="training" id="featured-photos">
   <div class="section">
-    <h2 class="section-title">Our Training In Action</h2>
-    <p class="section-intro">Real photographs from practical training, skills acquisition and community empowerment activities.</p>
-    <div class="training-grid">
-      <div class="training-photo"><img src="training-1.png" alt="Training 1"><div class="training-label">Training & Certification</div></div>
-      <div class="training-photo"><img src="training-2.png" alt="Training 2"><div class="training-label">Skills Acquisition</div></div>
-      <div class="training-photo"><img src="training-3.png" alt="Training 3"><div class="training-label">Catering Training</div></div>
-      <div class="training-photo"><img src="training-4.png" alt="Training 4"><div class="training-label">Practical Training</div></div>
-      <div class="training-photo"><img src="training-5.png" alt="Training 5"><div class="training-label">Community Skills</div></div>
-      <div class="training-photo"><img src="training-6.png" alt="Training 6"><div class="training-label">Fashion & Design</div></div>
-      <div class="training-photo"><img src="training-7.png" alt="Training 7"><div class="training-label">Community Empowerment</div></div>
-      <div class="training-photo"><img src="training-8.png" alt="Training 8"><div class="training-label">Humanitarian Outreach</div></div>
-      <div class="training-photo"><img src="training-9.png" alt="Training 9"><div class="training-label">Community Engagement</div></div>
-      <div class="training-photo"><img src="training-10.png" alt="Training 10"><div class="training-label">Partnership & Advocacy</div></div>
+    <h2 class="section-title">Featured Photos</h2>
+    <p class="section-intro">A small selection of special photographs chosen for the homepage. The full collection is available in the Gallery.</p>
+    <div class="featured-grid">
+      <div class="featured-card"><img src="training-1.png" alt="Featured training photo 1"><span>Training & Certification</span></div>
+      <div class="featured-card"><img src="training-2.png" alt="Featured training photo 2"><span>Skills Acquisition</span></div>
+      <div class="featured-card"><img src="training-3.png" alt="Featured training photo 3"><span>Catering Training</span></div>
+      <div class="featured-card"><img src="training-4.png" alt="Featured training photo 4"><span>Community Empowerment</span></div>
     </div>
-  </div>
-</section>
-
-<section id="about">
-  <div class="section">
-    <div class="about">
-      <div class="about-text">
-        <h2>Touching Lives Through Practical Empowerment</h2>
-        <p>OPM UYO TOUCHING LIVES is a humanitarian and skills-empowerment initiative focused on practical learning, service, opportunity creation and community development.</p>
-        <p>Through practical training and community outreach, we seek to equip people with useful skills that can create confidence, independence and opportunities.</p>
-      </div>
-      <div class="about-box">
-        <h3>Our Focus</h3>
-        <ul>
-          <li>Skills acquisition</li>
-          <li>Community empowerment</li>
-          <li>Mobile training opportunities</li>
-          <li>Partnership and CSR collaboration</li>
-          <li>Volunteer and community support</li>
-        </ul>
-      </div>
-    </div>
+    <div style="text-align:center;margin-top:25px"><a class="btn btn-gold" href="gallery.html">View Full Gallery →</a></div>
   </div>
 </section>
 
@@ -324,36 +331,6 @@ footer a:hover{color:var(--gold)}
     <div class="about-box">
       <h3>Taking Empowerment to the People</h3>
       <p>Mobile training can help reach communities, organize practical sessions and expand the impact of the Touching Lives initiative.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="section">
-    <h2 class="section-title">Achievements & Highlights</h2>
-    <p class="section-intro">A growing record of service, skills development and community empowerment.</p>
-    <div class="achievements">
-      <div class="achievement"><div class="achievement-icon">★</div><h3>5+ Years</h3><p>Continuous humanitarian and empowerment service.</p></div>
-      <div class="achievement"><div class="achievement-icon">✓</div><h3>1,000+ Trained</h3><p>People reached through practical skills training.</p></div>
-      <div class="achievement"><div class="achievement-icon">◆</div><h3>9+ Skills</h3><p>Practical training areas available.</p></div>
-      <div class="achievement"><div class="achievement-icon">↗</div><h3>Growing Reach</h3><p>Expanding toward mobile community training.</p></div>
-    </div>
-  </div>
-</section>
-
-
-<section id="news" class="news-section">
-  <div class="section">
-    <h2 class="section-title">Latest News & Events</h2>
-    <p class="section-intro">Stay updated with training activities, announcements and upcoming events. Swipe horizontally or use the arrows.</p>
-    <div class="news-track-wrap">
-      <button class="news-arrow" id="newsPrev" type="button" aria-label="Previous news">‹</button>
-      <div class="news-track" id="newsTrack">
-        <article class="news-card"><img src="news-1.png" alt="Latest OPM UYO TOUCHING LIVES news"><div class="news-body"><small>NEWS • TRAINING</small><h3>Skills Training & Empowerment</h3><p>Follow our latest practical training activities and community impact.</p><a href="news.html">View update →</a></div></article>
-        <article class="news-card"><img src="news-2.png" alt="Community event"><div class="news-body"><small>EVENT</small><h3>Community Outreach</h3><p>See announcements and upcoming humanitarian activities.</p><a href="news.html">View update →</a></div></article>
-        <article class="news-card"><img src="news-3.png" alt="Community update"><div class="news-body"><small>UPDATE</small><h3>New Opportunities</h3><p>Discover new training, partnership and volunteer opportunities.</p><a href="news.html">View update →</a></div></article>
-      </div>
-      <button class="news-arrow" id="newsNext" type="button" aria-label="Next news">›</button>
     </div>
   </div>
 </section>
@@ -415,10 +392,11 @@ footer a:hover{color:var(--gold)}
     <div>
       <h3>Quick Access</h3>
       <a href="#home">Home</a>
-      <a href="#about">About Us</a>
+      <a href="about.html">About Us & Achievements</a>
       <a href="#programs">Our Programs</a>
       <a href="#impact">Our Impact</a>
-      <a href="#training">Training Gallery</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="#featured-photos">Featured Photos</a>
       <a href="apply.html">Training Application</a>
       <a href="partnership.html">Partnership / CSR</a>
       <a class="footer-donate" href="donate.html">♥ Donate / Support Us</a>
@@ -543,7 +521,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 <script>
-(function(){const t=document.getElementById('newsTrack');if(!t)return;const step=380;document.getElementById('newsPrev').onclick=()=>t.scrollBy({left:-step,behavior:'smooth'});document.getElementById('newsNext').onclick=()=>t.scrollBy({left:step,behavior:'smooth'});setInterval(()=>{if(t.scrollLeft+t.clientWidth>=t.scrollWidth-5)t.scrollTo({left:0,behavior:'smooth'});else t.scrollBy({left:step,behavior:'smooth'})},6000)})();
+(function(){const t=document.getElementById('newsTrack');if(!t)return;const prev=document.getElementById('newsPrev'),next=document.getElementById('newsNext');const step=390;prev.onclick=()=>t.scrollBy({left:-step,behavior:'smooth'});next.onclick=()=>t.scrollBy({left:step,behavior:'smooth'});setInterval(()=>{if(t.scrollLeft+t.clientWidth>=t.scrollWidth-5)t.scrollTo({left:0,behavior:'smooth'});else t.scrollBy({left:step,behavior:'smooth'})},6500)})();
 </script>
 </body>
 </html>
