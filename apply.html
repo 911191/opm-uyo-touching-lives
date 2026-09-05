@@ -1,1 +1,44 @@
-
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="OPM UYO TOUCHING LIVES Training Application"><title>Training Application | OPM UYO TOUCHING LIVES</title>
+<style>:root{--navy:#071d52;--blue:#123f91;--red:#e31b23;--gold:#f4c928;--muted:#667085;--line:#e4e7ec;--light:#f5f7fb}*{box-sizing:border-box}body{font-family:Arial,Helvetica,sans-serif;margin:0;color:#17213b;background:var(--light)}header{padding:18px 5%;background:var(--navy);color:#fff;display:flex;justify-content:space-between;align-items:center}header a{color:#fff;text-decoration:none;font-weight:800}main{max-width:900px;margin:auto;padding:45px 5%}h1,h2{color:var(--navy)}.card{padding:28px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 25px #071d5214}label{display:block;font-weight:800;margin:16px 0}input,select,textarea{display:block;width:100%;padding:13px;margin-top:7px;box-sizing:border-box;border:1px solid #ccd3df;border-radius:8px;font:inherit;background:#fff}textarea{min-height:130px;resize:vertical}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.rules{padding:16px;background:#f8fafc;border:1px solid var(--line);border-radius:10px;margin:18px 0}.rules label{display:flex;gap:10px;align-items:flex-start;margin:0;font-weight:700}.rules input{width:auto;margin:3px 0 0}.preview{display:none;margin-top:10px;max-width:160px;max-height:180px;border-radius:10px;border:1px solid var(--line);object-fit:cover}.hint{font-size:13px;color:var(--muted);font-weight:normal}.actions{display:flex;gap:12px;flex-wrap:wrap}button,.btn{background:var(--red);color:white;border:0;border-radius:8px;padding:14px 22px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-block}button:disabled{opacity:.45;cursor:not-allowed}.secondary{background:var(--navy)}footer{background:#041432;color:#cbd7eb;padding:30px;text-align:center;margin-top:30px}@media(max-width:650px){.two{grid-template-columns:1fr}main{padding:30px 16px}.actions button,.actions .btn{width:100%;text-align:center}}</style></head>
+<body><header><strong>OPM UYO TOUCHING LIVES</strong><a href="index.html">← Home</a></header><main><h1>Training Application</h1><p>Complete the form carefully. All required fields must be filled before submission.</p><div class="card"><form id="applicationForm">
+<div class="two"><label>Full Name<input name="fullName" required></label><label>Phone Number<input name="phone" type="tel" required></label></div>
+<div class="two"><label>Email Address<input name="email" type="email"></label><label>Date of Birth<input name="dob" type="date" required></label></div>
+<div class="two"><label>Gender<select name="gender" required><option value="">Select gender</option><option>Male</option><option>Female</option><option>Prefer not to say</option></select></label><label>Training Program<select name="program" id="trainingProgram" required><option value="">Loading training programs…</option></select></label></div>
+<label>Address<textarea name="address" required placeholder="Enter your residential/contact address"></textarea></label>
+<label>Reason for Applying for the Training<textarea name="reason" required placeholder="Tell us briefly why you want to participate in this training"></textarea></label>
+<label>Passport Photograph<input id="passport" name="passport" type="file" accept="image/jpeg,image/png,image/webp" required><span class="hint">JPG, PNG or WEBP. Choose a clear passport-style photograph.</span><img id="preview" class="preview" alt="Passport photo preview"></label>
+<div class="rules"><label><input id="agree" type="checkbox" required><span>I have read, understood and agree to abide by the rules and regulations of the OPM UYO TOUCHING LIVES training programme.</span></label></div>
+<div class="actions"><button id="submitBtn" type="submit" disabled>Submit Application</button><a class="btn secondary" href="index.html">Return Home</a></div>
+<p id="status" class="hint" style="margin-top:16px"></p>
+</form></div><p class="hint" style="margin-top:18px">Privacy note: submitted application records are stored in the secure database. Passport photographs are kept in a separate private database table and are not published on the public website.</p></main><footer>© 2026 OPM UYO TOUCHING LIVES. All Rights Reserved.</footer>
+<script>
+const agree=document.getElementById('agree'),submit=document.getElementById('submitBtn'),passport=document.getElementById('passport'),preview=document.getElementById('preview'),form=document.getElementById('applicationForm'),status=document.getElementById('status'),trainingSelect=document.getElementById('trainingProgram');
+function update(){submit.disabled=!agree.checked||!passport.files.length||!trainingSelect.value}
+agree.addEventListener('change',update);
+passport.addEventListener('change',()=>{if(passport.files[0]){preview.src=URL.createObjectURL(passport.files[0]);preview.style.display='block'}else{preview.style.display='none'}update()});
+async function loadTrainingSkills(){
+ try{
+  const r=await fetch('/api/public/data?resource=training-skills',{headers:{Accept:'application/json'},cache:'no-store'}),d=await r.json();
+  if(!r.ok||!d.ok)throw new Error(d.error||('HTTP '+r.status));
+  const items=Array.isArray(d.items)?d.items:[];
+  trainingSelect.innerHTML='<option value="">Select training</option>'+items.map(x=>{const n=String(x.name??'');const esc=n.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));return '<option value="'+esc+'">'+esc+'</option>'}).join('');
+  trainingSelect.disabled=!items.length;if(!items.length)status.textContent='No active training programs are currently available.';update();
+ }catch(e){console.error(e);trainingSelect.innerHTML='<option value="">Training programs unavailable</option>';trainingSelect.disabled=true;status.textContent='Training programs could not be loaded right now.';update()}
+}
+function fileToDataURL(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file)})}
+form.addEventListener('submit',async e=>{
+ e.preventDefault(); if(submit.disabled)return;
+ submit.disabled=true; submit.textContent='Submitting…'; status.textContent='Please wait while your application is securely submitted.'; status.style.color='#071d52';
+ try{
+  const file=passport.files[0];
+  const passportData=await fileToDataURL(file);
+  const payload={fullName:form.fullName.value.trim(),email:form.email.value.trim(),phone:form.phone.value.trim(),dob:form.dob.value,gender:form.gender.value,program:form.program.value,address:form.address.value.trim(),reason:form.reason.value.trim(),passportData,passportType:file.type};
+  const r=await fetch('/api/public/submit-application',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
+  const d=await r.json(); if(!r.ok||!d.ok)throw new Error(d.error||('HTTP '+r.status));
+  status.textContent='Application submitted successfully. Your application has been received.'; status.style.color='#087443'; form.reset(); preview.style.display='none'; trainingSelect.value=''; update();
+ }catch(err){console.error(err);status.textContent=err.message||'Unable to submit the application. Please try again.';status.style.color='#b42318';update();}
+ finally{submit.textContent='Submit Application';}
+});
+loadTrainingSkills();
+</script></body></html>
