@@ -1,1 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery | OPM UYO TOUCHING LIVES</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#172033}a{text-decoration:none}.container{width:min(1120px,92%);margin:auto}.top{background:#061b4f;color:#fff;padding:18px 0}.top h1{margin:0;font-size:28px}.top p{margin:6px 0 0;color:#d9e4ff}.nav{background:#0b2b73;padding:12px 0}.nav a{color:#fff;margin-right:18px;font-weight:700}.hero{padding:38px 0 24px}.hero h2{margin:0 0 8px;font-size:34px;color:#061b4f}.hero p{margin:0;color:#596579}.status{text-align:center;padding:35px 10px;color:#596579}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:10px 0 55px}.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 5px 22px rgba(0,0,0,.08);border:1px solid #e5e9f2}.media{width:100%;aspect-ratio:4/3;background:#e9edf5;display:flex;align-items:center;justify-content:center;overflow:hidden}.media img{width:100%;height:100%;object-fit:cover;display:block}.media video{width:100%;height:100%;object-fit:cover}.body{padding:17px}.body h3{margin:0 0 8px;color:#061b4f;font-size:20px}.body p{margin:0;color:#5b6575;line-height:1.6}.empty{background:#fff;border-radius:14px;padding:40px;text-align:center;margin:10px 0 55px;box-shadow:0 5px 22px rgba(0,0,0,.06)}footer{background:#061b4f;color:#fff;text-align:center;padding:28px 15px}.error{color:#a40000;background:#fff1f1;border:1px solid #ffd0d0;border-radius:10px;padding:18px;margin:20px 0}@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.grid{grid-template-columns:1fr}.hero h2{font-size:28px}.top h1{font-size:23px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="container"><h1>OPM UYO TOUCHING LIVES</h1><p>Empowering Lives • Building Skills • Transforming Communities</p></div></header>
+<nav class="nav"><div class="container"><a href="index.html">Home</a><a href="gallery.html">Gallery</a><a href="news.html">News &amp; Events</a></div></nav>
+<main class="container">
+<section class="hero"><h2>Gallery</h2><p>Moments from OPM UYO TOUCHING LIVES activities, training and community impact.</p></section>
+<div id="message" class="status">Loading photos...</div>
+<div id="gallery" class="grid" style="display:none"></div>
+</main>
+<footer>© 2026 OPM UYO TOUCHING LIVES</footer>
+<script>
+(function(){
+  const gallery=document.getElementById('gallery');
+  const message=document.getElementById('message');
+  const esc=s=>String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+  function mediaUrl(raw){
+    const u=String(raw||'').trim();
+    if(!u)return '';
+    try{
+      const x=new URL(u,location.href), host=x.hostname.toLowerCase();
+      if(host==='ibb.co'||host.endsWith('.ibb.co')||host==='imgbb.com'||host.endsWith('.imgbb.com')||host==='i.ibb.co'){
+        return '/api/public/image?url='+encodeURIComponent(x.href);
+      }
+    }catch(e){}
+    return u;
+  }
+  function normalise(payload){
+    if(Array.isArray(payload))return payload;
+    if(payload&&Array.isArray(payload.items))return payload.items;
+    if(payload&&Array.isArray(payload.data))return payload.data;
+    if(payload&&Array.isArray(payload.gallery))return payload.gallery;
+    if(payload&&Array.isArray(payload.galleryItems))return payload.galleryItems;
+    return [];
+  }
+  async function load(){
+    try{
+      const res=await fetch('/api/public/data?resource=gallery',{cache:'no-store',headers:{Accept:'application/json'}});
+      if(!res.ok)throw new Error('Gallery API returned HTTP '+res.status);
+      const payload=await res.json();
+      let items=normalise(payload).filter(x=>x && x.active!==false && x.image_url);
+      items.sort((a,b)=>(Number(a.sort_order)||0)-(Number(b.sort_order)||0));
+      if(!items.length){
+        message.className='empty';
+        message.innerHTML='<h3>No gallery photos yet</h3><p>Active gallery photos added from the Admin Dashboard will appear here.</p>';
+        return;
+      }
+      gallery.innerHTML=items.map((x,i)=>{
+        const src=mediaUrl(x.image_url);
+        const title=esc(x.title||'OPM UYO TOUCHING LIVES');
+        const desc=esc(x.description||'');
+        return '<article class="card"><div class="media"><img src="'+esc(src)+'" alt="'+title+'" loading="lazy" onerror="this.onerror=null;this.alt=\'Image could not be loaded\';this.style.objectFit=\'contain\';this.src=\'data:image/svg+xml;charset=UTF-8,\'+encodeURIComponent(\'<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"600\" height=\"450\"><rect width=\"100%\" height=\"100%\" fill=\"%23e9edf5\"/><text x=\"50%\" y=\"50%\" dominant-baseline=\"middle\" text-anchor=\"middle\" fill=\"%23596579\" font-size=\"22\">Image unavailable</text></svg>\')"></div><div class="body"><h3>'+title+'</h3>'+(desc?'<p>'+desc+'</p>':'')+'</div></article>';
+      }).join('');
+      message.style.display='none';
+      gallery.style.display='grid';
+    }catch(err){
+      message.className='error';
+      message.innerHTML='<strong>Gallery could not be loaded.</strong><br>'+esc(err.message||'Unknown error')+'<br><br>Please refresh the page after the latest deployment is READY.';
+    }
+  }
+  load();
+})();
+</script>
+</body>
+</html>
 
