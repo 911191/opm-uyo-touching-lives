@@ -1,1 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OPM UYO TOUCHING LIVES — Admin Dashboard</title>
+<style>
+:root{--navy:#071d52;--blue:#0d3fa8;--gold:#caa43a;--red:#b5121b;--bg:#f4f7fb;--bd:#dfe5ef;--text:#17213b;--muted:#667085}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,textarea,select{font:inherit}.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,var(--navy),var(--blue))}
+.box,.card{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:20px}.box{width:min(440px,100%);box-shadow:0 20px 50px #0002}
+.logo{width:105px;height:75px;object-fit:contain;display:block;margin:0 auto 10px}.login h2{text-align:center;margin:5px 0}.login p{text-align:center;color:var(--muted)}
+label{display:block;font-weight:800;margin:12px 0 6px}input,textarea,select{width:100%;padding:11px;border:1px solid var(--bd);border-radius:8px;background:#fff}
+.btn{border:0;border-radius:8px;padding:10px 14px;font-weight:800;cursor:pointer}.primary{background:var(--red);color:#fff}.secondary{background:#e9eef8;color:var(--navy)}.gold{background:var(--gold);color:var(--navy)}.danger{background:#fee4e2;color:#a21b12}
+.app{display:none}.side{position:fixed;inset:0 auto 0 0;width:240px;background:var(--navy);color:#fff;padding:18px;z-index:5}.side-logo{width:82px;height:55px;object-fit:contain;display:block;margin:auto}.side h3{text-align:center;line-height:1.2}
+.nav button{display:block;width:100%;text-align:left;border:0;background:transparent;color:#fff;padding:11px;border-radius:8px;margin:3px 0;cursor:pointer}.nav button.active,.nav button:hover{background:#ffffff1c}
+.logout{position:absolute;bottom:15px;left:15px;width:calc(100% - 30px)!important}
+.main{margin-left:240px;padding:22px}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:15px}.pages>section{display:none}.pages>section.active{display:block}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.num{font-size:30px;font-weight:900;color:var(--navy)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.muted{color:var(--muted);font-size:13px}.msg{padding:10px;border-radius:8px;margin:8px 0}.ok{background:#e6f7ed;color:#126b37}.err{background:#fee4e2;color:#8a1c16}
+.table{width:100%;border-collapse:collapse}.table th,.table td{padding:9px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:top}.wrap{overflow:auto}
+.support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.support{border:1px solid var(--bd);border-radius:14px;padding:18px;background:#fff}.support h4{margin:0 0 8px;color:var(--navy)}.support a{display:block;text-align:center;text-decoration:none;margin-top:12px;border-radius:9px;padding:11px;font-weight:900}
+.modal{display:none;position:fixed;inset:0;background:#0008;place-items:center;padding:20px;z-index:20}.modal.open{display:grid}.modal .card{width:min(620px,100%);max-height:90vh;overflow:auto}
+@media(max-width:900px){.side{transform:translateX(-100%)}.side.open{transform:none}.main{margin:0}.stats,.support-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.stats,.support-grid{grid-template-columns:1fr}.main{padding:14px}}
+</style>
+</head>
+<body>
 
+<div id="login" class="login">
+  <div class="box">
+    <form id="loginForm">
+      <img class="logo" src="opm-uyo-logo.png" alt="OPM UYO TOUCHING LIVES">
+      <h2>Admin Dashboard</h2>
+      <p>OPM UYO TOUCHING LIVES</p>
+      <label>Username</label><input id="u" autocomplete="username" required>
+      <label>Password</label><input id="p" type="password" autocomplete="current-password" required>
+      <button class="btn primary" style="width:100%;margin-top:14px" id="loginBtn">Sign in</button>
+      <div id="loginMsg"></div>
+    </form>
+  </div>
+</div>
+
+<div id="app" class="app">
+  <aside id="side" class="side">
+    <img class="side-logo" src="opm-uyo-logo.png" alt="">
+    <h3>OPM UYO<br>TOUCHING LIVES</h3>
+    <div id="nav" class="nav"></div>
+    <button id="logout" class="btn logout primary">Sign out</button>
+  </aside>
+
+  <main class="main">
+    <div class="top">
+      <div><button id="menu" class="btn secondary">☰</button> <strong id="title">Dashboard</strong></div>
+      <span class="muted">● Secure admin session</span>
+    </div>
+    <div id="globalMsg"></div>
+
+    <div class="pages">
+      <section id="dashboard" class="active">
+        <div class="stats">
+          <div class="card">Training Skills<div class="num" id="cTraining">—</div></div>
+          <div class="card">Applications<div class="num" id="cApplications">—</div></div>
+          <div class="card">News & Events<div class="num" id="cNews">—</div></div>
+          <div class="card">Gallery Photos<div class="num" id="cGallery">—</div></div>
+        </div>
+        <div class="card" style="margin-top:14px">
+          <h3>Donation Support</h3>
+          <p class="muted">Three support options are connected to the OPM UYO TOUCHING LIVES Paystack Payment Pages.</p>
+          <div class="support-grid">
+            <div class="support"><h4>Monthly Support</h4><p class="muted">Recurring monthly support.</p><a class="gold" target="_blank" rel="noopener" href="https://paystack.shop/pay/opm-touching-lives-monthly-support">Support Monthly</a></div>
+            <div class="support"><h4>Quarterly Support</h4><p class="muted">Recurring quarterly support.</p><a class="gold" target="_blank" rel="noopener" href="https://paystack.shop/pay/opm-touching-lives-quarterly-donation">Support Quarterly</a></div>
+            <div class="support"><h4>One-Time Payment</h4><p class="muted">Flexible one-time donation.</p><a class="gold" target="_blank" rel="noopener" href="https://paystack.shop/pay/opm-touching-lives-donation">Donate Once</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="training"><div class="card"><div class="top"><h3>Training Skills</h3><button class="btn primary add" data-resource="training-skills">+ Add Skill</button></div><div id="t-training-skills"></div></div></section>
+      <section id="applications"><div class="card"><h3>Training Applications</h3><div id="t-applications"></div></div></section>
+      <section id="news"><div class="card"><div class="top"><h3>News & Events</h3><button class="btn primary add" data-resource="news-events">+ New Update</button></div><div id="t-news-events"></div></div></section>
+      <section id="gallery"><div class="card"><div class="top"><h3>Training Gallery</h3><button class="btn primary add" data-resource="gallery">+ Add Photo</button></div><div id="t-gallery"></div></div></section>
+      <section id="homepage"><div class="card"><div class="top"><h3>Homepage Specials</h3><button class="btn primary add" data-resource="homepage">+ Add Special</button></div><div id="t-homepage"></div></div></section>
+      <section id="partnerships"><div class="card"><h3>Partnership Applications</h3><div id="t-partnerships"></div></div></section>
+
+      <section id="donations">
+        <div class="card">
+          <div class="top"><div><h3 style="margin:0">Donation Dashboard</h3><p class="muted">Payment records available from the site's donation database.</p></div><button id="refreshPayments" class="btn secondary">↻ Refresh</button></div>
+          <div id="donationMsg"></div>
+          <div class="stats" style="margin-bottom:14px">
+            <div class="card">Recorded Successful Payments<div class="num" id="payCount">—</div></div>
+            <div class="card">Recorded Successful Amount<div class="num" id="payTotal">—</div></div>
+          </div>
+          <div class="support-grid" style="margin-bottom:14px">
+            <div class="support"><h4>Monthly</h4><a class="gold" target="_blank" rel="noopener" href="https://paystack.shop/pay/opm-touching-lives-monthly-support">Open Paystack</a></div>
+            <div class="support"><h4>Quarterly</h4><a class="gold" target="_blank" rel="noopener" href="https://paystack.shop/pay/opm-touching-lives-quarterly-donation">Open Paystack</a></div>
+            <div class="support"><h4>One-Time</h4><a class="gold" target="_blank" rel="noopener" href="https://paystack.shop/pay/opm-touching-lives-donation">Open Paystack</a></div>
+          </div>
+          <h4>Payment History</h4><div id="paymentsTable"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div id="modal" class="modal"><div class="card"><h3 id="modalTitle">Edit</h3><div id="modalFields"></div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:15px"><button id="cancel" class="btn secondary">Cancel</button><button id="save" class="btn primary">Save</button></div></div></div>
+
+<script>
+(() => {
+"use strict";
+const $=id=>document.getElementById(id);
+const labels={dashboard:"Dashboard",training:"Training Skills",applications:"Applications",news:"News & Events",gallery:"Gallery",homepage:"Homepage Specials",partnerships:"Partnerships",donations:"Donations / Support"};
+const cfg={
+"training-skills":[["name","Name","text",true],["description","Description","textarea"],["active","Active","checkbox"],["sort_order","Sort order","number"]],
+"news-events":[["item_type","Type: news or event","text",true],["title","Title","text",true],["summary","Summary","textarea"],["content","Content","textarea"],["image_url","Image URL","url"],["event_date","Event date","date"],["published","Published","checkbox"]],
+gallery:[["title","Title","text"],["description","Description","textarea"],["image_url","Image URL","url",true],["active","Active","checkbox"],["sort_order","Sort order","number"]],
+homepage:[["title","Title","text"],["description","Description","textarea"],["image_url","Image URL","url"],["active","Active","checkbox"],["sort_order","Sort order","number"]]
+};
+const data={};let editing=null;
+
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function msg(text,type="err",target="globalMsg"){const e=$(target);e.className="msg "+type;e.textContent=text;}
+function clearMsg(target="globalMsg"){const e=$(target);e.className="";e.textContent="";}
+async function req(url,opt={}){const r=await fetch(url,{credentials:"include",cache:"no-store",...opt,headers:{Accept:"application/json",...(opt.body?{"Content-Type":"application/json"}:{}),...(opt.headers||{})}});let p={};try{p=await r.json()}catch{}if(!r.ok){const e=new Error(p.error||p.detail||`Request failed (${r.status})`);e.status=r.status;throw e}return p}
+
+function nav(active="dashboard"){
+$("nav").innerHTML=Object.entries(labels).map(([id,l])=>`<button data-page="${id}" class="${id===active?"active":""}">${esc(l)}</button>`).join("");
+$("nav").querySelectorAll("button").forEach(b=>b.onclick=()=>go(b.dataset.page));
+}
+function go(id){document.querySelectorAll(".pages>section").forEach(s=>s.classList.remove("active"));$(id)?.classList.add("active");$("nav").querySelectorAll("button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));$("title").textContent=labels[id]||"Dashboard";$("side").classList.remove("open");if(id==="donations")loadPayments();}
+function render(resource){
+const target=$("t-"+resource);if(!target)return;const rows=data[resource]||[];
+if(!rows.length){target.innerHTML='<p class="muted">No records found.</p>';return}
+if(resource==="applications"){target.innerHTML=`<div class="wrap"><table class="table"><thead><tr><th>Date</th><th>Name</th><th>Email</th><th>Phone</th><th>Skill</th><th>Status</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${esc(x.created_at||"—")}</td><td>${esc(x.full_name||x.name||"—")}</td><td>${esc(x.email||"—")}</td><td>${esc(x.phone||"—")}</td><td>${esc(x.skill||x.training_skill||"—")}</td><td>${esc(x.status||"new")}</td></tr>`).join("")}</tbody></table></div>`;return}
+if(resource==="partnerships"){target.innerHTML=`<div class="wrap"><table class="table"><thead><tr><th>Date</th><th>Organization</th><th>Contact</th><th>Email</th><th>Phone</th><th>Type</th><th>Status</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${esc(x.created_at||"—")}</td><td>${esc(x.organization_name||"—")}</td><td>${esc(x.contact_name||"—")}</td><td>${esc(x.email||"—")}</td><td>${esc(x.phone||"—")}</td><td>${esc(x.partnership_type||"—")}</td><td>${esc(x.status||"new")}</td></tr>`).join("")}</tbody></table></div>`;return}
+const cols=cfg[resource]||[];
+target.innerHTML=`<div class="wrap"><table class="table"><thead><tr><th>ID</th>${cols.map(c=>`<th>${esc(c[1])}</th>`).join("")}<th>Actions</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${esc(x.id)}</td>${cols.map(c=>`<td>${c[2]==="checkbox"?(x[c[0]]?"Yes":"No"):esc(x[c[0]]??"")}</td>`).join("")}<td><button class="btn secondary" data-edit="${resource}" data-id="${x.id}">Edit</button> <button class="btn danger" data-del="${resource}" data-id="${x.id}">Delete</button></td></tr>`).join("")}</tbody></table></div>`;
+target.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>openEdit(b.dataset.edit,Number(b.dataset.id)));
+target.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>del(b.dataset.del,Number(b.dataset.id)));
+}
+async function load(resource){const r=await req(`/api/admin/data?resource=${encodeURIComponent(resource)}`);data[resource]=r.items||[];render(resource);return data[resource]}
+async function loadAll(){const rs=["training-skills","applications","news-events","gallery","homepage","partnerships"];const out=await Promise.allSettled(rs.map(load));if(out.some(x=>x.status==="rejected"))msg("Some dashboard sections could not be loaded.");$("cTraining").textContent=(data["training-skills"]||[]).length;$("cApplications").textContent=(data.applications||[]).length;$("cNews").textContent=(data["news-events"]||[]).length;$("cGallery").textContent=(data.gallery||[]).length)}
+function openEdit(resource,id=null){editing={resource,id};const row=id?(data[resource]||[]).find(x=>Number(x.id)===id)||{}:{};$("modalTitle").textContent=id?"Edit "+labels[resource]:"Add "+labels[resource];$("modalFields").innerHTML=(cfg[resource]||[]).map(([k,l,t,required])=>{const val=row[k]??"";if(t==="checkbox")return `<label><input id="f-${k}" type="checkbox" ${val?"checked":""}> ${esc(l)}</label>`;return `<label>${esc(l)}</label><${t==="textarea"?"textarea":"input"} id="f-${k}" type="${t}" ${required?"required":""}>${t==="textarea"?esc(val):""}</${t==="textarea"?"textarea":"input"}>`}).join("");(cfg[resource]||[]).forEach(([k,,t])=>{if(t!=="checkbox")$(`f-${k}`).value=row[k]??""});$("modal").classList.add("open")}
+async function save(){if(!editing)return;const body={};for(const [k,,t] of cfg[editing.resource])body[k]=t==="checkbox"?$(`f-${k}`).checked:$(`f-${k}`).value;try{await req(`/api/admin/data?resource=${encodeURIComponent(editing.resource)}${editing.id?`&id=${editing.id}`:""}`,{method:editing.id?"PATCH":"POST",body:JSON.stringify(body)});$("modal").classList.remove("open");await load(editing.resource);loadAll()}catch(e){alert(e.message)}}
+async function del(resource,id){if(!confirm("Delete this record?"))return;try{await req(`/api/admin/data?resource=${encodeURIComponent(resource)}&id=${id}`,{method:"DELETE"});await load(resource);loadAll()}catch(e){alert(e.message)}}
+
+function money(n){return "₦"+Number(n||0).toLocaleString("en-NG",{minimumFractionDigits:2,maximumFractionDigits:2})}
+async function loadPayments(){clearMsg("donationMsg");try{const r=await req("/api/admin/payments?limit=200");const rows=r.items||[];const success=rows.filter(x=>String(x.status).toLowerCase()==="success");$("payCount").textContent=success.length;$("payTotal").textContent=money(success.reduce((s,x)=>s+Number(x.amount||0),0));if(!rows.length){$("paymentsTable").innerHTML='<p class="muted">No payment records have been stored yet.</p>';return}$("paymentsTable").innerHTML=`<div class="wrap"><table class="table"><thead><tr><th>Date</th><th>Donor</th><th>Amount</th><th>Status</th><th>Channel</th><th>Reference</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${esc(x.paid_at||x.created_at||"—")}</td><td>${esc([x.first_name,x.last_name].filter(Boolean).join(" ")||x.email||"—")}<br><span class="muted">${esc(x.email||"")}</span></td><td><strong>${money(x.amount)}</strong></td><td>${esc(x.status||"—")}</td><td>${esc(x.channel||"—")}</td><td>${esc(x.reference||"—")}</td></tr>`).join("")}</tbody></table></div>`}catch(e){msg(e.message,"err","donationMsg");$("payCount").textContent="—";$("payTotal").textContent="—"}}
+
+$("loginForm").onsubmit=async e=>{e.preventDefault();clearMsg("loginMsg");$("loginBtn").disabled=true;$("loginBtn").textContent="Signing in...";try{await req("/api/admin/login",{method:"POST",body:JSON.stringify({username:$("u").value.trim(),password:$("p").value})});$("login").style.display="none";$("app").style.display="block";nav();await loadAll()}catch(e){msg(e.status===401?"Invalid username or password.":e.message,"err","loginMsg")}finally{$("loginBtn").disabled=false;$("loginBtn").textContent="Sign in"}};
+$("logout").onclick=async()=>{try{await req("/api/admin/logout",{method:"POST"})}finally{location.reload()}};
+$("menu").onclick=()=>$("side").classList.toggle("open");
+document.querySelectorAll(".add").forEach(b=>b.onclick=()=>openEdit(b.dataset.resource));
+$("cancel").onclick=()=>$("modal").classList.remove("open");$("save").onclick=save;$("refreshPayments").onclick=loadPayments;
+nav();
+})();
+</script>
+</body>
+</html>
