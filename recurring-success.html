@@ -1,1 +1,13 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recurring Support Confirmation | OPM UYO TOUCHING LIVES</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body{font-family:Arial,sans-serif;background:#f6f8fc;color:#263247}.wrap{max-width:720px;margin:50px auto;padding:20px}.card{background:#fff;border-radius:22px;padding:32px;box-shadow:0 12px 35px rgba(7,29,82,.1);text-align:center}.logo{width:100px}.h{color:#071d52}.amount{font-size:32px;font-weight:900;color:#071d52;margin:18px}.ok{color:#16833b;font-weight:800}.err{color:#9b201a;font-weight:800}.btn{display:inline-block;margin-top:20px;background:#caa43a;color:#071d52;text-decoration:none;padding:14px 22px;border-radius:10px;font-weight:900}
+</style></head><body><div class="wrap"><div class="card"><img class="logo" src="opm-uyo-logo.png" alt="OPM UYO TOUCHING LIVES"><h1 class="h">Thank You for Your Support</h1><p id="message">Checking your Paystack payment...</p><div id="details"></div><a class="btn" href="donate.html">← Back to Donation Page</a></div></div>
+<script>
+(async()=>{const p=new URLSearchParams(location.search);const ref=p.get('reference');const msg=document.getElementById('message');const details=document.getElementById('details');if(!ref){msg.className='err';msg.textContent='No payment reference was provided.';return;}try{const r=await fetch('/api/public/recurring?reference='+encodeURIComponent(ref),{cache:'no-store'});const d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'Unable to verify payment.');if(d.status==='success'){msg.className='ok';msg.textContent='Your recurring support has been successfully started.';details.innerHTML='<div class="amount">₦'+Number(d.amount||0).toLocaleString('en-NG')+'</div><p>Reference: '+String(d.reference||ref)+'</p>';}else{msg.className='err';msg.textContent='Payment status: '+String(d.status||'unknown')+'. If you completed payment, please check your Paystack receipt.';}}catch(e){msg.className='err';msg.textContent=e.message||'Unable to verify payment.';}})();
+</script></body></html>
 
