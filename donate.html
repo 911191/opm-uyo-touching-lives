@@ -1,3 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Donate | OPM UYO TOUCHING LIVES</title>
+<link rel="stylesheet" href="style.css">
+<style>
+:root{--navy:#071d52;--gold:#caa43a;--red:#b5121b;--light:#f6f8fc;--text:#263247}
+.donation-wrap{max-width:900px;margin:42px auto;padding:20px}.donation-card{background:#fff;border:1px solid #e3e8f1;border-radius:22px;padding:30px;box-shadow:0 12px 35px rgba(7,29,82,.10)}
+.logo-box{text-align:center;margin-bottom:18px}.logo-box img{width:105px;max-height:105px;object-fit:contain}.brand{text-align:center;color:var(--navy);font-weight:900;font-size:15px;letter-spacing:.4px;margin-top:8px}
+h1{text-align:center;color:var(--navy);margin:8px 0 12px;font-size:32px}.intro{text-align:center;color:#566070;line-height:1.75;max-width:680px;margin:0 auto 24px}
+.support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}.support-card{border:2px solid #d8dfeb;border-radius:15px;padding:18px;text-align:center;background:#fff}.support-card h2{color:var(--navy);font-size:20px;margin:4px 0 8px}.support-card p{color:#667085;line-height:1.55;min-height:50px}.support-card a{display:block;text-decoration:none;border-radius:11px;padding:13px 10px;background:var(--gold);color:var(--navy);font-weight:900}
+.one-time{border:1px solid #d8dfeb;border-radius:16px;padding:18px;background:var(--light)}.amount-label{display:block;color:var(--navy);font-weight:900;margin:0 0 12px}.amount-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.amount-btn{border:2px solid #d8dfeb;background:#fff;color:var(--navy);border-radius:13px;padding:15px 10px;font-size:17px;font-weight:900;cursor:pointer}.amount-btn:hover,.amount-btn.selected{border-color:var(--gold);background:#fff8df}
+.custom-box{border:1px solid #d8dfeb;border-radius:14px;padding:16px;margin-top:14px;background:#fff}.custom-box label{display:block;color:var(--navy);font-weight:800;margin-bottom:8px}.custom-input{width:100%;box-sizing:border-box;border:1px solid #cbd4e1;border-radius:10px;padding:14px;font-size:19px;font-weight:700}
+.selected{text-align:center;margin:16px 0;color:#566070}.selected strong{display:block;color:var(--navy);font-size:28px;margin-top:4px}.donate-btn{width:100%;border:0;border-radius:12px;padding:16px;background:var(--gold);color:var(--navy);font-weight:950;font-size:17px;cursor:pointer}.notice{display:none;margin:0 0 16px;padding:12px 14px;border-radius:10px;background:#fee4e2;color:#8a1c16;font-weight:700}.notice.show{display:block}.secure{text-align:center;color:#697487;font-size:13px;line-height:1.6;margin-top:16px}.back{text-align:center;margin-top:20px}.back a{color:var(--navy);font-weight:800;text-decoration:none}
+@media(max-width:700px){.support-grid{grid-template-columns:1fr}.amount-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:450px){.donation-wrap{margin:20px auto;padding:12px}.donation-card{padding:22px 16px}h1{font-size:26px}.amount-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="donation-wrap"><div class="donation-card">
+<div class="logo-box"><img src="opm-uyo-logo.png" alt="OPM UYO TOUCHING LIVES logo"><div class="brand">OPM UYO TOUCHING LIVES</div></div>
+<h1>Make a Difference Today</h1>
+<p class="intro">Your support helps us empower lives, build practical skills, provide humanitarian support and transform communities.</p>
 
+<div class="support-grid">
+<div class="support-card"><h2>Monthly Support</h2><p>Become a recurring supporter and help us plan sustainable empowerment work every month.</p><a target="_blank" rel="noopener" href="https://paystack.shop/pay/opm-touching-lives-monthly-support">Support Monthly</a></div>
+<div class="support-card"><h2>Quarterly Support</h2><p>Support our programmes every quarter and help us reach more communities.</p><a target="_blank" rel="noopener" href="https://paystack.shop/pay/opm-touching-lives-quarterly-donation">Support Quarterly</a></div>
+<div class="support-card"><h2>One-Time Payment</h2><p>Make a one-time contribution with your preferred amount.</p><a href="#one-time">Donate Once</a></div>
+</div>
+
+<div id="one-time" class="one-time">
+<label class="amount-label">One-Time Donation Amount</label>
+<div class="amount-grid">
+<button class="amount-btn" type="button" data-amount="5000">₦5,000</button>
+<button class="amount-btn" type="button" data-amount="10000">₦10,000</button>
+<button class="amount-btn" type="button" data-amount="50000">₦50,000</button>
+<button class="amount-btn" type="button" data-amount="100000">₦100,000</button>
+<button class="amount-btn" type="button" data-amount="250000">₦250,000</button>
+<button class="amount-btn" type="button" data-amount="500000">₦500,000</button>
+<button class="amount-btn" type="button" data-amount="1000000">₦1,000,000</button>
+</div>
+<div class="custom-box"><label for="customAmount">Or enter your preferred amount</label><input id="customAmount" class="custom-input" type="number" min="100" step="1" inputmode="numeric" placeholder="Enter amount in Naira"></div>
+<div class="selected">Selected donation<strong id="selectedAmount">₦0</strong></div>
+<div id="notice" class="notice"></div>
+<button id="donateBtn" class="donate-btn" type="button">Continue to Secure Payment</button>
+</div>
+
+<p class="secure">🔒 Payment is completed securely on Paystack. This website does not collect or store your card details.</p>
+<div class="back"><a href="index.html">← Back to OPM UYO TOUCHING LIVES</a></div>
+</div></div>
+<script>
+const PAYSTACK_ONE_TIME="https://paystack.shop/pay/opm-touching-lives-donation";
+let amount=0;
+const buttons=document.querySelectorAll(".amount-btn"),custom=document.getElementById("customAmount"),selected=document.getElementById("selectedAmount"),notice=document.getElementById("notice");
+const money=n=>"₦"+Number(n).toLocaleString("en-NG");
+function setAmount(v,b){amount=Number(v)||0;buttons.forEach(x=>x.classList.remove("selected"));if(b)b.classList.add("selected");if(b)custom.value="";selected.textContent=amount?money(amount):"₦0";notice.className="notice";notice.textContent=""}
+buttons.forEach(b=>b.onclick=()=>setAmount(b.dataset.amount,b));
+custom.oninput=()=>{amount=Number(custom.value)||0;buttons.forEach(x=>x.classList.remove("selected"));selected.textContent=amount?money(amount):"₦0"};
+document.getElementById("donateBtn").onclick=()=>{if(!amount||amount<100){notice.textContent="Please select an amount or enter at least ₦100.";notice.className="notice show";return}const u=new URL(PAYSTACK_ONE_TIME);u.searchParams.set("amount",String(amount));location.href=u.toString()};
+</script>
+</body>
+</html>
 
 
