@@ -1,1 +1,855 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OPM UYO TOUCHING LIVES — Admin</title><style>
+:root{--n:#071d52;--b:#0d3fa8;--r:#e31b23;--bg:#f4f7fb;--bd:#dfe5ef}*{box-sizing:border-box}body{margin:0;font-family:Arial;background:var(--bg);color:#17213b}button,input,textarea,select{font:inherit}.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,var(--n),var(--b))}.logo-mark{width:110px;height:75px;object-fit:contain;display:block;margin:0 auto 10px}.side-logo{width:82px;height:55px;object-fit:contain;display:block;margin:0 auto 8px}.box,.card{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:20px}.box{width:min(430px,100%)}label{display:block;font-weight:bold;margin:12px 0 6px}input,textarea,select{width:100%;padding:11px;border:1px solid var(--bd);border-radius:8px}.btn{border:0;border-radius:8px;padding:10px 14px;font-weight:bold;cursor:pointer}.primary{background:var(--r);color:#fff}.secondary{background:#e9eef8;color:var(--n)}.danger{background:#fee4e2;color:#a21b12}.app{display:none}.side{position:fixed;inset:0 auto 0 0;width:235px;background:var(--n);color:white;padding:18px}.side button{display:block;width:100%;text-align:left;border:0;background:transparent;color:white;padding:11px;border-radius:8px;margin:3px 0}.side button.active,.side button:hover{background:#ffffff1c}.logout{position:absolute;bottom:15px;left:15px;width:calc(100% - 30px)!important;background:var(--r)!important;text-align:center!important}.main{margin-left:235px;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.pages>section{display:none}.pages>section.active{display:block}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.num{font-size:30px;font-weight:900;color:var(--n)}.donation-stat{font-size:24px;font-weight:900;color:var(--n)}.subgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}.mini{font-size:13px;color:#667085}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.toolbar input,.toolbar select{width:auto;min-width:130px}.toolbar button:disabled{opacity:.5;cursor:not-allowed}.status-pill{display:inline-block;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:800;background:#e9eef8;color:var(--n)}.status-success{background:#e6f7ed;color:#126b37}.status-active{background:#e6f7ed;color:#126b37}.status-failed,.status-abandoned,.status-reversed{background:#fee4e2;color:#8a1c16}.muted{color:#667085;font-size:13px}@media(max-width:850px){.subgrid{grid-template-columns:1fr}}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:9px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:top}.wrap{overflow:auto}.msg{padding:10px;border-radius:8px;margin:8px 0}.ok{background:#e6f7ed;color:#126b37}.err{background:#fee4e2;color:#8a1c16}.modal{display:none;position:fixed;inset:0;background:#0008;place-items:center;padding:20px}.modal.open{display:grid}.modal .card{width:min(620px,100%);max-height:90vh;overflow:auto}@media(max-width:850px){.side{transform:translateX(-100%);z-index:5}.side.open{transform:none}.main{margin:0}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.stats{grid-template-columns:1fr}}
+</style></head><body>
+<div id="login" class="login"><div class="box"><form id="loginForm"><img class="logo-mark" src="opm-uyo-logo.png" alt="OPM UYO TOUCHING LIVES"><h2>Admin Dashboard</h2><p>OPM UYO TOUCHING LIVES</p><label>Username</label><input id="u" autocomplete="username"><label>Password</label><input id="p" type="password" autocomplete="current-password"><button class="btn primary" type="submit" id="loginBtn">Sign in</button><div id="lm"></div></form></div></div>
+<div id="app" class="app"><aside id="side" class="side"><img class="side-logo" src="opm-uyo-logo.png" alt="OPM UYO TOUCHING LIVES"><h3>OPM UYO<br>TOUCHING LIVES</h3><div id="nav"></div><button type="button" class="logout btn">Sign out</button></aside><main class="main"><div class="top"><div><button type="button" class="btn secondary">☰</button> <strong id="title">Admin Dashboard</strong></div><span>● Database connected</span></div><div id="gm"></div><div class="pages">
+<section id="dashboard" class="active"><div class="stats"><div class="card">Training Skills<div class="num" id="c1">—</div></div><div class="card">Applications<div class="num" id="c2">—</div></div><div class="card">News & Events<div class="num" id="c3">—</div></div><div class="card">Gallery Photos<div class="num" id="c4">—</div></div><div class="card">Successful Payments<div class="donation-stat" id="donationTotal">—</div><div class="mini" id="donationCount">Loading…</div></div><div class="card">Active Recurring<div class="donation-stat" id="subscriptionCount">—</div><div class="mini" id="subscriptionBreakdown">Loading…</div></div></div></section>
+<section id="training"><div class="card"><div class="top"><h3>Training Skills</h3><button class="btn primary" data-action="add" data-resource="training-skills">+ Add Skill</button></div><div id="t-training-skills"></div></div></section>
+<section id="applications"><div class="card"><h3>Training Applications</h3><div id="t-applications"></div></div></section>
+<section id="news"><div class="card"><div class="top"><h3>News & Events</h3><button class="btn primary" data-action="add" data-resource="news-events">+ New Update</button></div><div id="t-news-events"></div></div></section>
+<section id="gallery"><div class="card"><div class="top"><h3>Training Gallery</h3><button class="btn primary" data-action="add" data-resource="gallery">+ Add Photo</button></div><div id="t-gallery"></div></div></section>
+<section id="homepage"><div class="card"><div class="top"><h3>Homepage Specials</h3><button class="btn primary" data-action="add" data-resource="homepage">+ Add Special</button></div><div id="t-homepage"></div></div></section>
+<section id="partnerships"><div class="card"><h3>Partnership Applications</h3><div id="t-partnerships"></div></div></section>
+<section id="donations">
+  <div class="card">
+    <div class="top"><div><h3 style="margin:0">Donation Management</h3><div class="muted">Live donation and recurring-support activity from your connected Paystack account.</div></div><div class="toolbar"><a class="btn secondary" style="text-decoration:none" target="_blank" rel="noopener" href="https://dashboard.paystack.com/#/transactions">Paystack Dashboard</a><button type="button" class="btn secondary" id="refreshDonations">↻ Refresh</button><button type="button" class="btn primary" id="exportDonations">Export CSV</button></div></div>
+    <div id="donationMessage"></div>
+    <div class="subgrid">
+      <div class="card"><div class="mini">Successful payment value</div><div class="donation-stat" id="dTotal">—</div></div>
+      <div class="card"><div class="mini">Successful payments</div><div class="donation-stat" id="dCount">—</div></div>
+      <div class="card"><div class="mini">Active recurring supporters</div><div class="donation-stat" id="dSubs">—</div></div>
+    </div>
+    <div class="toolbar" style="margin-top:12px">
+      <select id="donationStatus" style="width:auto"><option value="">All statuses</option><option value="success">Successful</option><option value="failed">Failed</option><option value="abandoned">Abandoned</option><option value="reversed">Reversed</option><option value="pending">Pending</option></select>
+      <input id="donationFrom" type="date" style="width:auto" aria-label="From date">
+      <input id="donationTo" type="date" style="width:auto" aria-label="To date">
+      <input id="donationSearch" type="search" placeholder="Search donor, email or reference" style="min-width:240px">
+      <button type="button" class="btn secondary" id="applyDonationFilters">Apply</button>
+      <button type="button" class="btn secondary" id="clearDonationFilters">Clear</button>
+    </div>
+    <h4>Payment History</h4><div id="donationPayments"></div>
+    <div class="toolbar" style="justify-content:space-between;margin-top:10px"><span class="muted" id="donationPageInfo">—</span><div><button type="button" class="btn secondary" id="donationPrev">← Previous</button> <button type="button" class="btn secondary" id="donationNext">Next →</button></div></div>
+    <h4 style="margin-top:24px">Recurring Supporters</h4><div id="donationSubscriptions"></div>
+  </div>
+</section>
+</div></main></div>
+<div id="modal" class="modal"><div class="card"><h3 id="mt"></h3><div id="mf"></div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:15px"><button type="button" class="btn secondary">Cancel</button><button type="button" class="btn primary">Save</button></div></div></div>
+<div id="viewModal" class="modal"><div class="card"><h3 id="vt"></h3><div id="vf"></div><div style="display:flex;justify-content:flex-end;margin-top:15px"><button type="button" class="btn secondary" id="viewClose">Close</button></div></div></div>
+<script>
+(() => {
+  "use strict";
+
+  const API = "/api/admin/data";
+
+  const $ = (id) => document.getElementById(id);
+
+  const els = {
+    login: $("login"),
+    loginForm: $("loginForm"),
+    loginBtn: $("loginBtn"),
+    username: $("u"),
+    password: $("p"),
+    loginMessage: $("lm"),
+
+    app: $("app"),
+    side: $("side"),
+    nav: $("nav"),
+    title: $("title"),
+    globalMessage: $("gm"),
+
+    modal: $("modal"),
+    modalTitle: $("mt"),
+    modalFields: $("mf"),
+    viewModal: $("viewModal"),
+    viewTitle: $("vt"),
+    viewFields: $("vf"),
+    viewClose: $("viewClose"),
+
+    dashboard: $("dashboard"),
+    countTraining: $("c1"),
+    countApplications: $("c2"),
+    countNews: $("c3"),
+    countGallery: $("c4"),
+    donationTotal: $("donationTotal"),
+    donationCount: $("donationCount"),
+    subscriptionCount: $("subscriptionCount"),
+    subscriptionBreakdown: $("subscriptionBreakdown"),
+    donationMessage: $("donationMessage"),
+    donationPayments: $("donationPayments"),
+    donationSubscriptions: $("donationSubscriptions"),
+    dTotal: $("dTotal"),
+    dCount: $("dCount"),
+    dSubs: $("dSubs"),
+    refreshDonations: $("refreshDonations"),
+    exportDonations: $("exportDonations"),
+    donationStatus: $("donationStatus"),
+    donationFrom: $("donationFrom"),
+    donationTo: $("donationTo"),
+    donationSearch: $("donationSearch"),
+    applyDonationFilters: $("applyDonationFilters"),
+    clearDonationFilters: $("clearDonationFilters"),
+    donationPrev: $("donationPrev"),
+    donationNext: $("donationNext"),
+    donationPageInfo: $("donationPageInfo")
+  };
+
+  const data = {};
+  let editing = null;
+  let loginBusy = false;
+  let donationPayload = null;
+  let donationPage = 1;
+  const donationPerPage = 100;
+
+  const cfg = {
+    "training-skills": [
+      ["name", "Name", "text", true],
+      ["description", "Description", "textarea"],
+      ["active", "Active", "checkbox"],
+      ["sort_order", "Sort order", "number"]
+    ],
+    "news-events": [
+      ["item_type", "Type: news or event", "text", true],
+      ["title", "Title", "text", true],
+      ["summary", "Summary", "textarea"],
+      ["content", "Content", "textarea"],
+      ["image_url", "Image URL", "url"],
+      ["event_date", "Event date", "date"],
+      ["published", "Published", "checkbox"]
+    ],
+    gallery: [
+      ["title", "Title", "text"],
+      ["description", "Description", "textarea"],
+      ["image_url", "Image URL", "url", true],
+      ["active", "Active", "checkbox"],
+      ["sort_order", "Sort order", "number"]
+    ],
+    homepage: [
+      ["title", "Title", "text"],
+      ["description", "Description", "textarea"],
+      ["image_url", "Image URL", "url"],
+      ["active", "Active", "checkbox"],
+      ["sort_order", "Sort order", "number"]
+    ]
+  };
+
+  const labels = {
+    dashboard: "Dashboard",
+    training: "Training Skills",
+    applications: "Applications",
+    news: "News & Events",
+    gallery: "Gallery",
+    homepage: "Homepage Specials",
+    partnerships: "Partnerships",
+    donations: "Donations / Support"
+  };
+
+  function escapeHtml(value) {
+    return String(value ?? "").replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[c]));
+  }
+
+  function showMessage(message, type = "err") {
+    els.globalMessage.className = `msg ${type}`;
+    els.globalMessage.textContent = message;
+  }
+
+  function clearMessage() {
+    els.globalMessage.className = "";
+    els.globalMessage.textContent = "";
+  }
+
+  function showLoginMessage(message = "") {
+    els.loginMessage.className = message ? "msg err" : "";
+    els.loginMessage.textContent = message;
+  }
+
+  function setLoggedInUI() {
+    els.login.style.display = "none";
+    els.app.style.display = "block";
+  }
+
+  function setLoggedOutUI() {
+    els.app.style.display = "none";
+    els.login.style.display = "grid";
+  }
+
+  function buildNavigation(activeId = "dashboard") {
+    els.nav.innerHTML = Object.entries(labels).map(([id, label]) => `
+      <button type="button"
+              data-page="${escapeHtml(id)}"
+              class="${id === activeId ? "active" : ""}">
+        ${escapeHtml(label)}
+      </button>
+    `).join("");
+
+    els.nav.querySelectorAll("button[data-page]").forEach((button) => {
+      button.addEventListener("click", () => go(button.dataset.page));
+    });
+  }
+
+  function go(id) {
+    const section = $(id);
+    if (!section) return;
+
+    document.querySelectorAll(".pages > section").forEach((sectionEl) => {
+      sectionEl.classList.remove("active");
+    });
+
+    section.classList.add("active");
+
+    els.nav.querySelectorAll("button[data-page]").forEach((button) => {
+      button.classList.toggle("active", button.dataset.page === id);
+    });
+
+    els.title.textContent = labels[id] || "Admin Dashboard";
+    els.side.classList.remove("open");
+  }
+
+  async function request(url, options = {}) {
+    const response = await fetch(url, {
+      credentials: "include",
+      cache: "no-store",
+      ...options,
+      headers: {
+        Accept: "application/json",
+        ...(options.body ? { "Content-Type": "application/json" } : {}),
+        ...(options.headers || {})
+      }
+    });
+
+    let payload = {};
+    try {
+      payload = await response.json();
+    } catch (_) {
+      // Non-JSON response; use HTTP status below.
+    }
+
+    if (!response.ok) {
+      const rawError = payload && payload.error;
+      const message = typeof rawError === "string"
+        ? rawError
+        : rawError && typeof rawError === "object"
+          ? (rawError.message || rawError.error || rawError.detail || JSON.stringify(rawError))
+          : (payload && payload.detail) || `Request failed (HTTP ${response.status})`;
+      const error = new Error(String(message));
+      error.status = response.status;
+      error.detail = payload && payload.detail ? String(payload.detail) : "";
+      throw error;
+    }
+
+    return payload;
+  }
+
+  async function login() {
+    if (loginBusy) return;
+
+    const username = els.username.value.trim();
+    const password = els.password.value;
+
+    showLoginMessage("");
+
+    if (!username || !password) {
+      showLoginMessage("Please enter your username and password.");
+      return;
+    }
+
+    loginBusy = true;
+    els.loginBtn.disabled = true;
+    els.loginBtn.textContent = "Signing in...";
+
+    try {
+      await request("/api/admin/login", {
+        method: "POST",
+        body: JSON.stringify({ username, password })
+      });
+
+      // The server accepted the credentials and set the HttpOnly session cookie.
+      setLoggedInUI();
+      buildNavigation("dashboard");
+      clearMessage();
+
+      try {
+        await loadAll();
+      } catch (error) {
+        // Authentication succeeded; report dashboard loading separately.
+        showMessage(`Signed in, but dashboard data could not be loaded: ${error.message}`);
+      }
+    } catch (error) {
+      showLoginMessage(
+        error.status === 401
+          ? "Invalid username or password."
+          : error.message
+      );
+    } finally {
+      loginBusy = false;
+      els.loginBtn.disabled = false;
+      els.loginBtn.textContent = "Sign in";
+    }
+  }
+
+  async function logout() {
+    try {
+      await request("/api/admin/logout", { method: "POST" });
+    } catch (_) {
+      // Even if logout endpoint fails, reload and let /me decide the session state.
+    } finally {
+      window.location.replace("/admin.html");
+    }
+  }
+
+  async function load(resource) {
+    const result = await request(`${API}?resource=${encodeURIComponent(resource)}`);
+    data[resource] = Array.isArray(result.items) ? result.items : [];
+    render(resource);
+    return data[resource];
+  }
+
+  async function loadAll() {
+    clearMessage();
+
+    const resources = [
+      "training-skills",
+      "applications",
+      "news-events",
+      "gallery",
+      "homepage",
+      "partnerships"
+    ];
+
+    const results = await Promise.allSettled(resources.map(load));
+    const failures = results.filter((result) => result.status === "rejected");
+
+    els.countTraining.textContent = (data["training-skills"] || []).length;
+    els.countApplications.textContent = (data.applications || []).length;
+    els.countNews.textContent = (data["news-events"] || []).length;
+    els.countGallery.textContent = (data.gallery || []).length;
+
+    if (failures.length) {
+      const first = failures[0].reason;
+      if (first && first.status === 401) {
+        window.location.replace("/admin.html");
+        return;
+      }
+      throw new Error(
+        `${failures.length} dashboard section${failures.length === 1 ? "" : "s"} could not be loaded.`
+      );
+    }
+
+    // Donation data is loaded separately so a Paystack/API issue never breaks
+    // the already-working training, partnership, news, gallery, or homepage sections.
+    await loadDonations();
+  }
+
+  function render(resource) {
+    const target = $(`t-${resource}`);
+    if (!target) return;
+
+    const rows = data[resource] || [];
+
+    if (!rows.length) {
+      target.innerHTML = "<p>No records yet.</p>";
+      return;
+    }
+
+    const keys =
+      resource === "applications"
+        ? ["full_name", "email", "phone", "preferred_skill", "status"]
+        : resource === "partnerships"
+        ? ["organization_name", "contact_name", "email", "phone", "status"]
+        : resource === "training-skills"
+        ? ["name", "description", "active"]
+        : resource === "news-events"
+        ? ["item_type", "title", "event_date", "published"]
+        : ["title", "image_url", "active"];
+
+    const canEdit = Boolean(cfg[resource]);
+
+    target.innerHTML = `
+      <div class="wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              ${keys.map((key) => `<th>${escapeHtml(key.replaceAll("_", " "))}</th>`).join("")}
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map((row) => `
+              <tr>
+                ${keys.map((key) => `<td>${escapeHtml(row[key])}</td>`).join("")}
+                <td>
+                  ${(resource === "applications" || resource === "partnerships")
+                    ? `<button type="button" class="btn secondary view-btn"
+                         data-resource="${escapeHtml(resource)}"
+                         data-id="${escapeHtml(row.id)}">View</button>`
+                    : ""}
+                  ${canEdit
+                    ? `<button type="button" class="btn secondary edit-btn"
+                         data-resource="${escapeHtml(resource)}"
+                         data-id="${escapeHtml(row.id)}">Edit</button>`
+                    : ""}
+                  <button type="button" class="btn danger delete-btn"
+                          data-resource="${escapeHtml(resource)}"
+                          data-id="${escapeHtml(row.id)}">Delete</button>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    target.querySelectorAll(".edit-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        openEdit(button.dataset.resource, Number(button.dataset.id));
+      });
+    });
+
+    target.querySelectorAll(".view-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        viewRecord(button.dataset.resource, Number(button.dataset.id));
+      });
+    });
+
+    target.querySelectorAll(".delete-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        del(button.dataset.resource, Number(button.dataset.id));
+      });
+    });
+  }
+
+  function moneyKobo(value) {
+    return "₦" + (Number(value || 0) / 100).toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function shortDate(value) {
+    if (!value) return "—";
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? String(value) : d.toLocaleString("en-NG", { dateStyle: "medium", timeStyle: "short" });
+  }
+
+  function statusPill(status) {
+    const safe = escapeHtml(status || "unknown");
+    const cls = `status-pill status-${String(status || "").toLowerCase()}`;
+    return `<span class="${cls}">${safe}</span>`;
+  }
+
+  function donationQueryUrl(page = donationPage) {
+    const params = new URLSearchParams();
+    params.set("page", String(page));
+    params.set("perPage", String(donationPerPage));
+    const status = els.donationStatus?.value || "";
+    const from = els.donationFrom?.value || "";
+    const to = els.donationTo?.value || "";
+    if (status) params.set("status", status);
+    if (from) params.set("from", from);
+    if (to) params.set("to", to);
+    return `/api/admin/payments?${params.toString()}`;
+  }
+
+  function filteredDonationTransactions(rows) {
+    const q = String(els.donationSearch?.value || "").trim().toLowerCase();
+    if (!q) return rows;
+    return rows.filter(row => {
+      const c = row.customer || {};
+      return [row.reference, row.status, row.channel, c.email, c.first_name, c.last_name, row.customer_email, row.customer_name]
+        .filter(Boolean).join(" ").toLowerCase().includes(q);
+    });
+  }
+
+  async function loadDonations(page = donationPage) {
+    try {
+      donationPage = Math.max(1, Number(page) || 1);
+      const result = await request(donationQueryUrl(donationPage));
+      donationPayload = result;
+      const summary = result.summary || {};
+      const total = Number(summary.successful_transaction_total_kobo || 0);
+      const count = Number(summary.successful_transaction_count || 0);
+      const active = Number(summary.active_subscription_count || 0);
+
+      els.donationTotal.textContent = moneyKobo(total);
+      els.donationCount.textContent = `${count} successful payment${count === 1 ? "" : "s"}`;
+      els.subscriptionCount.textContent = String(active);
+      els.subscriptionBreakdown.textContent = `${Number(summary.active_monthly_count || 0)} monthly • ${Number(summary.active_quarterly_count || 0)} quarterly`;
+      els.dTotal.textContent = moneyKobo(total);
+      els.dCount.textContent = String(count);
+      els.dSubs.textContent = String(active);
+
+      const warnings = Array.isArray(result.warnings) ? result.warnings : [];
+      els.donationMessage.innerHTML = warnings.length
+        ? `<div class="msg err">Updated ${shortDate(result.generated_at)}. ${warnings.map(item => escapeHtml(item.message)).join(" | ")}</div>`
+        : `<div class="msg ok">Updated ${shortDate(result.generated_at)}.</div>`;
+
+      renderDonationPayments(filteredDonationTransactions(result.transactions || []));
+      renderDonationSubscriptions(result.subscriptions || []);
+
+      const meta = result.meta || {};
+      const pageCount = Number(meta.pageCount || 1);
+      els.donationPageInfo.textContent = `Page ${donationPage} of ${pageCount} • ${Number(meta.total || (result.transactions || []).length)} transaction records`;
+      els.donationPrev.disabled = donationPage <= 1;
+      els.donationNext.disabled = donationPage >= pageCount;
+    } catch (error) {
+      if (error.status === 401) {
+        window.location.replace("/admin.html");
+        return;
+      }
+      els.donationTotal.textContent = "—";
+      els.donationCount.textContent = "Unavailable";
+      els.subscriptionCount.textContent = "—";
+      els.subscriptionBreakdown.textContent = "Unavailable";
+      els.dTotal.textContent = "—";
+      els.dCount.textContent = "—";
+      els.dSubs.textContent = "—";
+      els.donationMessage.innerHTML = `<div class="msg err">${escapeHtml(error.message)}</div>`;
+      els.donationPayments.innerHTML = "";
+      els.donationSubscriptions.innerHTML = "";
+      els.donationPageInfo.textContent = "Unable to load payment history";
+      els.donationPrev.disabled = true;
+      els.donationNext.disabled = true;
+    }
+  }
+
+  function renderDonationPayments(rows) {
+    if (!rows.length) {
+      els.donationPayments.innerHTML = "<p>No Paystack transactions found for the selected filters.</p>";
+      return;
+    }
+    const ordered = [...rows].sort((a,b) => new Date(b.paid_at || b.created_at || 0) - new Date(a.paid_at || a.created_at || 0));
+    els.donationPayments.innerHTML = `<div class="wrap"><table class="table"><thead><tr><th>Date</th><th>Donor</th><th>Amount</th><th>Status</th><th>Channel</th><th>Reference</th><th>Action</th></tr></thead><tbody>${ordered.map(row => `<tr><td>${escapeHtml(shortDate(row.paid_at || row.created_at))}</td><td>${escapeHtml(row.customer_name || row.customer_email || "—")}<br><span class="muted">${escapeHtml(row.customer_email || (row.customer && row.customer.email) || "")}</span></td><td><strong>${escapeHtml(moneyKobo(row.amount))}</strong></td><td>${statusPill(row.status)}</td><td>${escapeHtml(row.channel || "—")}</td><td>${escapeHtml(row.reference || "—")}</td><td><button type="button" class="btn secondary donation-view-btn" data-id="${escapeHtml(row.id)}">View</button></td></tr>`).join("")}</tbody></table></div>`;
+    els.donationPayments.querySelectorAll(".donation-view-btn").forEach(button => button.addEventListener("click", () => viewPayment(button.dataset.id)));
+  }
+
+  function renderDonationSubscriptions(rows) {
+    if (!rows.length) {
+      els.donationSubscriptions.innerHTML = "<p>No recurring supporters found.</p>";
+      return;
+    }
+    els.donationSubscriptions.innerHTML = `<div class="wrap"><table class="table"><thead><tr><th>Supporter</th><th>Amount</th><th>Interval</th><th>Status</th><th>Next payment</th><th>Started</th><th>Action</th></tr></thead><tbody>${rows.map(row => `<tr><td>${escapeHtml([row.first_name,row.last_name].filter(Boolean).join(" ") || row.email || "—")}<br><span class="muted">${escapeHtml(row.email || "")}</span></td><td><strong>${escapeHtml(moneyKobo(row.amount))}</strong></td><td>${escapeHtml(row.interval || "—")}</td><td>${statusPill(row.status)}</td><td>${escapeHtml(shortDate(row.next_payment_date))}</td><td>${escapeHtml(shortDate(row.created_at))}</td><td><button type="button" class="btn secondary subscription-view-btn" data-code="${escapeHtml(row.subscription_code || row.id || "")}">View</button></td></tr>`).join("")}</tbody></table></div>`;
+    els.donationSubscriptions.querySelectorAll(".subscription-view-btn").forEach(button => button.addEventListener("click", () => viewSubscription(button.dataset.code)));
+  }
+
+  async function viewPayment(id) {
+    try {
+      const result = await request(`/api/admin/payments?id=${encodeURIComponent(id)}`);
+      const row = result.item || {};
+      const customer = row.customer || {};
+      const plan = row.plan_object || row.plan || {};
+      openDetailModal("Payment Details", `<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 18px">
+        ${detailField("Transaction ID", row.id)}
+        ${detailField("Reference", row.reference)}
+        ${detailField("Amount", moneyKobo(row.amount))}
+        ${detailField("Status", row.status)}
+        ${detailField("Donor", [customer.first_name,customer.last_name].filter(Boolean).join(" ") || row.customer_name || "—")}
+        ${detailField("Email", customer.email || row.customer_email)}
+        ${detailField("Phone", customer.phone)}
+        ${detailField("Payment Channel", row.channel)}
+        ${detailField("Fees", moneyKobo(row.fees))}
+        ${detailField("Paid At", shortDate(row.paid_at))}
+        ${detailField("Created At", shortDate(row.created_at))}
+        ${detailField("Recurring Interval", plan.interval || (row.metadata && row.metadata.interval) || "One-time")}
+        ${detailField("Gateway Response", row.gateway_response, true)}
+      </div>`);
+    } catch (error) {
+      openDetailModal("Unable to Load Payment", `<div class="msg err">${escapeHtml(error.message || "Unable to load payment details.")}</div>`);
+    }
+  }
+
+  async function viewSubscription(code) {
+    if (!code) return;
+    try {
+      const result = await request(`/api/admin/payments?subscription=${encodeURIComponent(code)}`);
+      const row = result.item || {};
+      const customer = row.customer || {};
+      const plan = row.plan || {};
+      openDetailModal("Recurring Support Details", `<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 18px">
+        ${detailField("Subscription", row.subscription_code || code)}
+        ${detailField("Status", row.status)}
+        ${detailField("Supporter", [customer.first_name,customer.last_name].filter(Boolean).join(" "))}
+        ${detailField("Email", customer.email || row.email)}
+        ${detailField("Amount", moneyKobo(row.amount))}
+        ${detailField("Interval", row.interval || plan.interval)}
+        ${detailField("Next Payment", shortDate(row.next_payment_date))}
+        ${detailField("Started", shortDate(row.created_at || row.start))}
+        ${detailField("Plan", plan.name || "—", true)}
+      </div>`);
+    } catch (error) {
+      openDetailModal("Unable to Load Subscription", `<div class="msg err">${escapeHtml(error.message || "Unable to load subscription details.")}</div>`);
+    }
+  }
+
+  function exportDonationsCsv() {
+    if (!donationPayload) return;
+    const rows = [
+      ["Type","Date","Donor","Email","Amount NGN","Status","Interval","Channel","Reference"],
+      ...(donationPayload.transactions || []).map(r => ["Payment", r.paid_at || r.created_at || "", r.customer_name || (r.customer && [r.customer.first_name,r.customer.last_name].filter(Boolean).join(" ")) || "", r.customer_email || (r.customer && r.customer.email) || "", (Number(r.amount || 0)/100).toFixed(2), r.status || "", (r.plan_object && r.plan_object.interval) || "", r.channel || "", r.reference || ""]),
+      ...(donationPayload.subscriptions || []).map(r => ["Recurring", r.created_at || "", [r.first_name,r.last_name].filter(Boolean).join(" "), r.email || "", (Number(r.amount || 0)/100).toFixed(2), r.status || "", r.interval || "", "", r.subscription_code || ""])
+    ];
+    const csv = rows.map(row => row.map(v => `"${String(v ?? "").replace(/"/g, '""')}"`).join(",")).join("\n");
+    const blob = new Blob([csv], {type:"text/csv;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = `opm-donations-${new Date().toISOString().slice(0,10)}.csv`; a.click(); URL.revokeObjectURL(url);
+  }
+
+  function detailField(label, value, wide = false) {
+    return `<div style="padding:10px 0;border-bottom:1px solid var(--bd)${wide ? ";grid-column:1/-1" : ""}">
+      <div style="font-weight:bold;margin-bottom:4px">${escapeHtml(label)}</div>
+      <div style="white-space:pre-wrap">${escapeHtml(value ?? "—")}</div>
+    </div>`;
+  }
+
+  function openDetailModal(title, html) {
+    els.viewTitle.textContent = title;
+    els.viewFields.innerHTML = html;
+    els.viewModal.classList.add("open");
+  }
+
+  async function viewRecord(resource, id) {
+    if (!id) return;
+    const endpoint = resource === "applications"
+      ? `/api/admin/application-detail?id=${encodeURIComponent(id)}`
+      : `/api/admin/partnership-detail?id=${encodeURIComponent(id)}`;
+
+    openDetailModal(
+      resource === "applications" ? "Training Application Details" : "Partnership / CSR Details",
+      "<p>Loading secure details…</p>"
+    );
+
+    try {
+      const result = await request(endpoint);
+      const item = result.item || (Array.isArray(result.items) ? result.items[0] : null);
+      if (!item) throw new Error("Record not found.");
+
+      if (resource === "applications") {
+        const passport = item.passport_data && item.passport_type
+          ? `<div style="padding:10px 0;border-bottom:1px solid var(--bd);grid-column:1/-1"><div style="font-weight:bold;margin-bottom:4px">Passport Photograph</div><img src="${escapeHtml(item.passport_data)}" alt="Applicant passport photograph" style="max-width:180px;max-height:220px;border-radius:8px;object-fit:cover"></div>`
+          : detailField("Passport Photograph", "Not available", true);
+
+        openDetailModal("Training Application Details", `<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 18px">
+          ${detailField("Application ID", item.id)}
+          ${detailField("Status", item.status)}
+          ${detailField("Full Name", item.full_name)}
+          ${detailField("Email", item.email)}
+          ${detailField("Phone", item.phone)}
+          ${detailField("Training Program", item.preferred_skill)}
+          ${detailField("Date of Birth", item.date_of_birth)}
+          ${detailField("Gender", item.gender)}
+          ${detailField("Address", item.address, true)}
+          ${detailField("Reason for Applying", item.reason || item.message, true)}
+          ${detailField("Submitted", item.created_at)}
+          ${passport}
+        </div>`);
+      } else {
+        openDetailModal("Partnership / CSR Details", `<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 18px">
+          ${detailField("Application ID", item.id)}
+          ${detailField("Status", item.status)}
+          ${detailField("Organization / Company", item.organization_name)}
+          ${detailField("Contact Person", item.contact_name)}
+          ${detailField("Email", item.email)}
+          ${detailField("Phone", item.phone)}
+          ${detailField("Partnership / CSR Type", item.partnership_type)}
+          ${detailField("Proposal / Message", item.message, true)}
+          ${detailField("Submitted", item.created_at)}
+        </div>`);
+      }
+    } catch (error) {
+      if (error.status === 401 || error.status === 403) {
+        els.viewModal.classList.remove("open");
+        window.location.replace("/admin.html");
+        return;
+      }
+      openDetailModal("Unable to Load Details", `<div class="msg err">${escapeHtml(error.message || "Unable to load this record.")}</div>`);
+    }
+  }
+
+  function openEdit(resource, id = null) {
+    const fields = cfg[resource];
+    if (!fields) return;
+
+    const existing = id
+      ? (data[resource] || []).find((row) => Number(row.id) === Number(id))
+      : null;
+
+    editing = { resource, id: id || null };
+
+    els.modalTitle.textContent =
+      `${existing ? "Edit " : "Add "}` +
+      (resource === "training-skills" ? "Training Skill" : resource);
+
+    els.modalFields.innerHTML = fields.map(([key, label, type, required]) => {
+      if (type === "checkbox") {
+        return `
+          <label>
+            <input id="f_${escapeHtml(key)}" type="checkbox">
+            ${escapeHtml(label)}
+          </label>
+        `;
+      }
+
+      const tag = type === "textarea" ? "textarea" : "input";
+      const typeAttr = type === "textarea" ? "" : ` type="${escapeHtml(type)}"`;
+      const requiredAttr = required ? " required" : "";
+
+      return `
+        <label for="f_${escapeHtml(key)}">${escapeHtml(label)}${required ? " *" : ""}</label>
+        <${tag} id="f_${escapeHtml(key)}"${typeAttr}${requiredAttr}></${tag}>
+      `;
+    }).join("");
+
+    fields.forEach(([key]) => {
+      const field = $(`f_${key}`);
+      if (!field) return;
+
+      if (field.type === "checkbox") {
+        field.checked = existing?.[key] === undefined ? true : Boolean(existing[key]);
+      } else if (existing?.[key] != null) {
+        field.value = existing[key];
+      }
+    });
+
+    els.modal.classList.add("open");
+  }
+
+  function closeModal() {
+    els.modal.classList.remove("open");
+    editing = null;
+  }
+
+  async function save() {
+    if (!editing) return;
+
+    const { resource, id } = editing;
+    const fields = cfg[resource];
+    if (!fields) return;
+
+    const body = {};
+
+    for (const [key, , type] of fields) {
+      const field = $(`f_${key}`);
+      if (!field) continue;
+
+      if (field.type === "checkbox") {
+        body[key] = field.checked;
+      } else {
+        body[key] = field.value.trim() || null;
+      }
+    }
+
+    const missingRequired = fields
+      .filter(([, , , required]) => required)
+      .some(([key]) => {
+        const field = $(`f_${key}`);
+        return !field || !String(field.value || "").trim();
+      });
+
+    if (missingRequired) {
+      showMessage("Please complete all required fields.");
+      return;
+    }
+
+    try {
+      await request(
+        `${API}?resource=${encodeURIComponent(resource)}${id ? `&id=${encodeURIComponent(id)}` : ""}`,
+        {
+          method: id ? "PATCH" : "POST",
+          body: JSON.stringify(body)
+        }
+      );
+
+      closeModal();
+      showMessage("Saved successfully.", "ok");
+      await loadAll();
+    } catch (error) {
+      if (error.status === 401) {
+        window.location.replace("/admin.html");
+        return;
+      }
+      showMessage(error.message);
+    }
+  }
+
+  async function del(resource, id) {
+    if (!Number.isFinite(id)) return;
+    if (!window.confirm("Delete this record?")) return;
+
+    try {
+      await request(
+        `${API}?resource=${encodeURIComponent(resource)}&id=${encodeURIComponent(id)}`,
+        { method: "DELETE" }
+      );
+
+      showMessage("Deleted successfully.", "ok");
+      await loadAll();
+    } catch (error) {
+      if (error.status === 401) {
+        window.location.replace("/admin.html");
+        return;
+      }
+      showMessage(error.message);
+    }
+  }
+
+  async function checkSession() {
+    try {
+      await request("/api/admin/me");
+      setLoggedInUI();
+      buildNavigation("dashboard");
+      await loadAll();
+    } catch (error) {
+      if (error.status === 401 || error.status === 403) {
+        setLoggedOutUI();
+        showLoginMessage("");
+        els.username.focus();
+        return;
+      }
+
+      setLoggedOutUI();
+      showLoginMessage("Unable to verify the admin session. Please try again.");
+    }
+  }
+
+  // Wire up events without relying on global element variables.
+  els.loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    login();
+  });
+
+  els.side.querySelector(".logout").addEventListener("click", logout);
+
+  els.viewClose.addEventListener("click", () => els.viewModal.classList.remove("open"));
+  els.modal.querySelector(".secondary").addEventListener("click", closeModal);
+  els.modal.querySelector(".primary").addEventListener("click", save);
+
+  // Mobile sidebar toggle.
+  els.mainToggle = document.querySelector(".main .top .secondary");
+  if (els.mainToggle) {
+    els.mainToggle.addEventListener("click", () => {
+      els.side.classList.toggle("open");
+    });
+  }
+
+  // Wire add/create buttons. These used to rely on inline onclick handlers,
+  // but this script is intentionally scoped inside an IIFE.
+  document.querySelectorAll("[data-action=\"add\"][data-resource]").forEach((button) => {
+    button.addEventListener("click", () => openEdit(button.dataset.resource));
+  });
+
+  els.refreshDonations.addEventListener("click", () => loadDonations(donationPage));
+  els.exportDonations.addEventListener("click", exportDonationsCsv);
+  els.applyDonationFilters = els.applyDonationFilters || document.getElementById("applyDonationFilters");
+  els.applyDonationFilters.addEventListener("click", () => loadDonations(1));
+  els.clearDonationFilters.addEventListener("click", () => { els.donationStatus.value=""; els.donationFrom.value=""; els.donationTo.value=""; els.donationSearch.value=""; loadDonations(1); });
+  els.donationPrev.addEventListener("click", () => { if (donationPage > 1) loadDonations(donationPage - 1); });
+  els.donationNext.addEventListener("click", () => { const pageCount=Number(donationPayload?.meta?.pageCount || 1); if (donationPage < pageCount) loadDonations(donationPage + 1); });
+  els.donationSearch.addEventListener("input", () => renderDonationPayments(filteredDonationTransactions(donationPayload?.transactions || [])));
+
+  // Start from the server's actual session state.
+  checkSession();
+})();
+</script>
+</body></html>
 
