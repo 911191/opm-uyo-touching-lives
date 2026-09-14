@@ -1,1 +1,844 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OPM UYO TOUCHING LIVES — Admin</title><style>
+:root{--n:#071d52;--b:#0d3fa8;--r:#e31b23;--bg:#f4f7fb;--bd:#dfe5ef}*{box-sizing:border-box}body{margin:0;font-family:Arial;background:var(--bg);color:#17213b}button,input,textarea,select{font:inherit}.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,var(--n),var(--b))}.logo-mark{width:110px;height:75px;object-fit:contain;display:block;margin:0 auto 10px}.side-logo{width:82px;height:55px;object-fit:contain;display:block;margin:0 auto 8px}.box,.card{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:20px}.box{width:min(430px,100%)}label{display:block;font-weight:bold;margin:12px 0 6px}input,textarea,select{width:100%;padding:11px;border:1px solid var(--bd);border-radius:8px}.btn{border:0;border-radius:8px;padding:10px 14px;font-weight:bold;cursor:pointer}.primary{background:var(--r);color:#fff}.secondary{background:#e9eef8;color:var(--n)}.danger{background:#fee4e2;color:#a21b12}.app{display:none}.side{position:fixed;inset:0 auto 0 0;width:235px;background:var(--n);color:white;padding:18px}.side button{display:block;width:100%;text-align:left;border:0;background:transparent;color:white;padding:11px;border-radius:8px;margin:3px 0}.side button.active,.side button:hover{background:#ffffff1c}.logout{position:absolute;bottom:15px;left:15px;width:calc(100% - 30px)!important;background:var(--r)!important;text-align:center!important}.main{margin-left:235px;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.pages>section{display:none}.pages>section.active{display:block}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.num{font-size:30px;font-weight:900;color:var(--n)}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:9px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:top}.wrap{overflow:auto}.msg{padding:10px;border-radius:8px;margin:8px 0}.ok{background:#e6f7ed;color:#126b37}.err{background:#fee4e2;color:#8a1c16}.modal{display:none;position:fixed;inset:0;background:#0008;place-items:center;padding:20px}.modal.open{display:grid}.modal .card{width:min(620px,100%);max-height:90vh;overflow:auto}
+.donation-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}.donation-note{padding:12px;border:1px solid var(--bd);border-radius:10px;background:#f8fafc;color:var(--muted);line-height:1.5}.donation-links{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}.donation-links a{display:block;text-align:center;text-decoration:none;border-radius:10px;padding:12px;font-weight:900}.filter-row{display:grid;grid-template-columns:1fr 180px 180px;gap:10px;margin:12px 0}.small{font-size:12px;color:var(--muted)}.status-pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#eef2f7;font-size:12px;font-weight:800}.status-success{background:#e6f7ed;color:#126b37}.status-failed{background:#fee4e2;color:#8a1c16}.status-active{background:#e6f7ed;color:#126b37}.empty-box{padding:18px;border:1px dashed var(--bd);border-radius:10px;color:var(--muted);text-align:center}.donation-section{margin-top:18px}.donation-section h4{margin:0 0 10px;color:var(--navy)}
+@media(max-width:850px){.side{transform:translateX(-100%);z-index:5}.side.open{transform:none}.main{margin:0}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.stats{grid-template-columns:1fr}}
+</style></head><body>
+<div id="login" class="login"><div class="box"><form id="loginForm"><img class="logo-mark" src="opm-uyo-logo.png" alt="OPM UYO TOUCHING LIVES"><h2>Admin Dashboard</h2><p>OPM UYO TOUCHING LIVES</p><label>Username</label><input id="u" autocomplete="username"><label>Password</label><input id="p" type="password" autocomplete="current-password"><button class="btn primary" type="submit" id="loginBtn">Sign in</button><div id="lm"></div></form></div></div>
+<div id="app" class="app"><aside id="side" class="side"><img class="side-logo" src="opm-uyo-logo.png" alt="OPM UYO TOUCHING LIVES"><h3>OPM UYO<br>TOUCHING LIVES</h3><div id="nav"></div><button type="button" class="logout btn">Sign out</button></aside><main class="main"><div class="top"><div><button type="button" class="btn secondary">☰</button> <strong id="title">Admin Dashboard</strong></div><span>● Database connected</span></div><div id="gm"></div><div class="pages">
+<section id="dashboard" class="active"><div class="stats"><div class="card">Training Skills<div class="num" id="c1">—</div></div><div class="card">Applications<div class="num" id="c2">—</div></div><div class="card">News & Events<div class="num" id="c3">—</div></div><div class="card">Gallery Photos<div class="num" id="c4">—</div></div></div></section>
+<section id="training"><div class="card"><div class="top"><h3>Training Skills</h3><button class="btn primary" data-action="add" data-resource="training-skills">+ Add Skill</button></div><div id="t-training-skills"></div></div></section>
+<section id="applications"><div class="card"><h3>Training Applications</h3><div id="t-applications"></div></div></section>
+<section id="news"><div class="card"><div class="top"><h3>News & Events</h3><button class="btn primary" data-action="add" data-resource="news-events">+ New Update</button></div><div id="t-news-events"></div></div></section>
+<section id="gallery"><div class="card"><div class="top"><h3>Training Gallery</h3><button class="btn primary" data-action="add" data-resource="gallery">+ Add Photo</button></div><div id="t-gallery"></div></div></section>
+<section id="homepage"><div class="card"><div class="top"><h3>Homepage Specials</h3><button class="btn primary" data-action="add" data-resource="homepage">+ Add Special</button></div><div id="t-homepage"></div></div></section>
+<section id="partnerships"><div class="card"><h3>Partnership Applications</h3><div id="t-partnerships"></div></div></section>
+<section id="donations">
+<div class="card">
+  <div class="top">
+    <div><h3 style="margin:0">Donation Management</h3><p style="margin:5px 0 0;color:#667085">Manage donation records, payment history and recurring-support information connected to OPM UYO TOUCHING LIVES.</p></div>
+    <div class="toolbar"><button type="button" id="refreshPayments" class="btn secondary">↻ Refresh</button><button type="button" id="exportPayments" class="btn gold">Export CSV</button></div>
+  </div>
+  <div id="donationMsg"></div>
+
+  <div class="stats" style="margin:14px 0">
+    <div class="card">Successful Payments<div class="num" id="payCount">—</div></div>
+    <div class="card">Successful Amount<div class="num" id="payTotal">—</div></div>
+    <div class="card">Active Recurring Supporters<div class="num" id="recurringCount">—</div></div>
+    <div class="card">Recurring Records Detected<div class="num" id="recurringRecords">—</div></div>
+  </div>
+
+  <div class="donation-links">
+    <a class="gold" target="_blank" rel="noopener" href="https://dashboard.paystack.com/">Paystack Dashboard</a>
+    <a class="secondary" target="_blank" rel="noopener" href="https://paystack.shop/pay/opm-touching-lives-donation">One-Time Payment</a>
+    <a class="secondary" target="_blank" rel="noopener" href="https://paystack.shop/pay/opm-touching-lives-monthly-support">Monthly Support</a>
+    <a class="secondary" target="_blank" rel="noopener" href="https://paystack.shop/pay/opm-touching-lives-quarterly-donation">Quarterly Support</a>
+  </div>
+
+  <div class="donation-note">
+    <strong>Paystack Dashboard:</strong> use it for the authoritative live transaction, customer, subscription and settlement records. This admin dashboard displays the donation records available through the site's secure admin payment endpoint and provides a local CSV export of the records loaded here.
+  </div>
+
+  <div class="donation-section">
+    <div class="top"><h4>Payment History</h4><button type="button" id="exportPayments2" class="btn secondary">Export Payment History</button></div>
+    <div class="filter-row">
+      <input id="paymentSearch" type="search" placeholder="Search donor, email or reference">
+      <select id="paymentStatus"><option value="">All statuses</option><option value="success">Success</option><option value="failed">Failed</option><option value="abandoned">Abandoned</option><option value="reversed">Reversed</option></select>
+      <select id="paymentLimit"><option value="200">Latest 200</option><option value="500">Latest 500</option><option value="1000">Latest 1000</option></select>
+    </div>
+    <div id="paymentsTable"></div>
+  </div>
+
+  <div class="donation-section">
+    <div class="top"><div><h4>Active Recurring Supporters</h4><div class="small">Monthly and quarterly recurring records detected from the secure payment data.</div></div><button type="button" id="exportRecurring" class="btn secondary">Export Recurring CSV</button></div>
+    <div id="recurringTable"></div>
+  </div>
+</div>
+</section>
+</div></main></div>
+<div id="modal" class="modal"><div class="card"><h3 id="mt"></h3><div id="mf"></div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:15px"><button type="button" class="btn secondary">Cancel</button><button type="button" class="btn primary">Save</button></div></div></div>
+<div id="viewModal" class="modal"><div class="card"><h3 id="vt">View Partnership</h3><div id="vf"></div><div style="display:flex;justify-content:flex-end;margin-top:15px"><button type="button" class="btn secondary" id="viewClose">Close</button></div></div></div>
+<div id="paymentModal" class="modal"><div class="card"><h3>Payment Details</h3><div id="paymentView"></div><div style="display:flex;justify-content:flex-end;margin-top:15px"><button type="button" class="btn secondary" id="paymentClose">Close</button></div></div></div>
+<script>
+(() => {
+  "use strict";
+
+  const API = "/api/admin/data";
+
+  const $ = (id) => document.getElementById(id);
+
+  const els = {
+    login: $("login"),
+    loginForm: $("loginForm"),
+    loginBtn: $("loginBtn"),
+    username: $("u"),
+    password: $("p"),
+    loginMessage: $("lm"),
+
+    app: $("app"),
+    side: $("side"),
+    nav: $("nav"),
+    title: $("title"),
+    globalMessage: $("gm"),
+
+    modal: $("modal"),
+    modalTitle: $("mt"),
+    modalFields: $("mf"),
+
+    dashboard: $("dashboard"),
+    countTraining: $("c1"),
+    countApplications: $("c2"),
+    countNews: $("c3"),
+    countGallery: $("c4")
+  };
+
+  const data = {};
+  let editing = null;
+  let loginBusy = false;
+
+  const cfg = {
+    "training-skills": [
+      ["name", "Name", "text", true],
+      ["description", "Description", "textarea"],
+      ["active", "Active", "checkbox"],
+      ["sort_order", "Sort order", "number"]
+    ],
+    "news-events": [
+      ["item_type", "Type: news or event", "text", true],
+      ["title", "Title", "text", true],
+      ["summary", "Summary", "textarea"],
+      ["content", "Content", "textarea"],
+      ["image_url", "Image URL", "url"],
+      ["event_date", "Event date", "date"],
+      ["published", "Published", "checkbox"]
+    ],
+    gallery: [
+      ["title", "Title", "text"],
+      ["description", "Description", "textarea"],
+      ["image_url", "Image URL", "url", true],
+      ["active", "Active", "checkbox"],
+      ["sort_order", "Sort order", "number"]
+    ],
+    homepage: [
+      ["title", "Title", "text"],
+      ["description", "Description", "textarea"],
+      ["image_url", "Image URL", "url"],
+      ["active", "Active", "checkbox"],
+      ["sort_order", "Sort order", "number"]
+    ]
+  };
+
+  const labels = {
+    dashboard: "Dashboard",
+    training: "Training Skills",
+    applications: "Applications",
+    news: "News & Events",
+    gallery: "Gallery",
+    homepage: "Homepage Specials",
+    partnerships: "Partnerships",
+    donations: "Donations / Support"
+  };
+
+  function escapeHtml(value) {
+    return String(value ?? "").replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[c]));
+  }
+
+  function showMessage(message, type = "err") {
+    els.globalMessage.className = `msg ${type}`;
+    els.globalMessage.textContent = message;
+  }
+
+  function clearMessage() {
+    els.globalMessage.className = "";
+    els.globalMessage.textContent = "";
+  }
+
+  function showLoginMessage(message = "") {
+    els.loginMessage.className = message ? "msg err" : "";
+    els.loginMessage.textContent = message;
+  }
+
+  function setLoggedInUI() {
+    els.login.style.display = "none";
+    els.app.style.display = "block";
+  }
+
+  function setLoggedOutUI() {
+    els.app.style.display = "none";
+    els.login.style.display = "grid";
+  }
+
+  function buildNavigation(activeId = "dashboard") {
+    els.nav.innerHTML = Object.entries(labels).map(([id, label]) => `
+      <button type="button"
+              data-page="${escapeHtml(id)}"
+              class="${id === activeId ? "active" : ""}">
+        ${escapeHtml(label)}
+      </button>
+    `).join("");
+
+    els.nav.querySelectorAll("button[data-page]").forEach((button) => {
+      button.addEventListener("click", () => go(button.dataset.page));
+    });
+  }
+
+  function go(id) {
+    const section = $(id);
+    if (!section) return;
+
+    document.querySelectorAll(".pages > section").forEach((sectionEl) => {
+      sectionEl.classList.remove("active");
+    });
+
+    section.classList.add("active");
+
+    els.nav.querySelectorAll("button[data-page]").forEach((button) => {
+      button.classList.toggle("active", button.dataset.page === id);
+    });
+
+    els.title.textContent = labels[id] || "Admin Dashboard";
+    els.side.classList.remove("open");
+    if (id === "donations") loadPayments();
+  }
+
+  async function request(url, options = {}) {
+    const response = await fetch(url, {
+      credentials: "include",
+      cache: "no-store",
+      ...options,
+      headers: {
+        Accept: "application/json",
+        ...(options.body ? { "Content-Type": "application/json" } : {}),
+        ...(options.headers || {})
+      }
+    });
+
+    let payload = {};
+    try {
+      payload = await response.json();
+    } catch (_) {
+      // Non-JSON response; use HTTP status below.
+    }
+
+    if (!response.ok) {
+      const rawError = payload && payload.error;
+      const message = typeof rawError === "string"
+        ? rawError
+        : rawError && typeof rawError === "object"
+          ? (rawError.message || rawError.error || rawError.detail || JSON.stringify(rawError))
+          : (payload && payload.detail) || `Request failed (HTTP ${response.status})`;
+      const error = new Error(String(message));
+      error.status = response.status;
+      error.detail = payload && payload.detail ? String(payload.detail) : "";
+      throw error;
+    }
+
+    return payload;
+  }
+
+  async function login() {
+    if (loginBusy) return;
+
+    const username = els.username.value.trim();
+    const password = els.password.value;
+
+    showLoginMessage("");
+
+    if (!username || !password) {
+      showLoginMessage("Please enter your username and password.");
+      return;
+    }
+
+    loginBusy = true;
+    els.loginBtn.disabled = true;
+    els.loginBtn.textContent = "Signing in...";
+
+    try {
+      await request("/api/admin/login", {
+        method: "POST",
+        body: JSON.stringify({ username, password })
+      });
+
+      // The server accepted the credentials and set the HttpOnly session cookie.
+      setLoggedInUI();
+      buildNavigation("dashboard");
+      clearMessage();
+
+      try {
+        await loadAll();
+      } catch (error) {
+        // Authentication succeeded; report dashboard loading separately.
+        showMessage(`Signed in, but dashboard data could not be loaded: ${error.message}`);
+      }
+    } catch (error) {
+      showLoginMessage(
+        error.status === 401
+          ? "Invalid username or password."
+          : error.message
+      );
+    } finally {
+      loginBusy = false;
+      els.loginBtn.disabled = false;
+      els.loginBtn.textContent = "Sign in";
+    }
+  }
+
+  async function logout() {
+    try {
+      await request("/api/admin/logout", { method: "POST" });
+    } catch (_) {
+      // Even if logout endpoint fails, reload and let /me decide the session state.
+    } finally {
+      window.location.replace("/admin.html");
+    }
+  }
+
+  async function load(resource) {
+    const result = await request(`${API}?resource=${encodeURIComponent(resource)}`);
+    data[resource] = Array.isArray(result.items) ? result.items : [];
+    render(resource);
+    return data[resource];
+  }
+
+  async function loadAll() {
+    clearMessage();
+
+    const resources = [
+      "training-skills",
+      "applications",
+      "news-events",
+      "gallery",
+      "homepage",
+      "partnerships"
+    ];
+
+    const results = await Promise.allSettled(resources.map(load));
+    const failures = results.filter((result) => result.status === "rejected");
+
+    els.countTraining.textContent = (data["training-skills"] || []).length;
+    els.countApplications.textContent = (data.applications || []).length;
+    els.countNews.textContent = (data["news-events"] || []).length;
+    els.countGallery.textContent = (data.gallery || []).length;
+
+    if (failures.length) {
+      const first = failures[0].reason;
+      if (first && first.status === 401) {
+        window.location.replace("/admin.html");
+        return;
+      }
+      throw new Error(
+        `${failures.length} dashboard section${failures.length === 1 ? "" : "s"} could not be loaded.`
+      );
+    }
+  }
+
+  function render(resource) {
+    const target = $(`t-${resource}`);
+    if (!target) return;
+
+    const rows = data[resource] || [];
+
+    if (!rows.length) {
+      target.innerHTML = "<p>No records yet.</p>";
+      return;
+    }
+
+    const keys =
+      resource === "applications"
+        ? ["full_name", "email", "phone", "preferred_skill", "status"]
+        : resource === "partnerships"
+        ? ["organization_name", "contact_name", "email", "phone", "status"]
+        : resource === "training-skills"
+        ? ["name", "description", "active"]
+        : resource === "news-events"
+        ? ["item_type", "title", "event_date", "published"]
+        : ["title", "image_url", "active"];
+
+    const canEdit = Boolean(cfg[resource]);
+
+    target.innerHTML = `
+      <div class="wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              ${keys.map((key) => `<th>${escapeHtml(key.replaceAll("_", " "))}</th>`).join("")}
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map((row) => `
+              <tr>
+                ${keys.map((key) => `<td>${escapeHtml(row[key])}</td>`).join("")}
+                <td>
+                  ${(resource === "applications" || resource === "partnerships")
+                    ? `<button type="button" class="btn secondary view-btn"
+                         data-resource="${escapeHtml(resource)}"
+                         data-id="${escapeHtml(row.id)}">View</button>`
+                    : ""}
+                  ${canEdit
+                    ? `<button type="button" class="btn secondary edit-btn"
+                         data-resource="${escapeHtml(resource)}"
+                         data-id="${escapeHtml(row.id)}">Edit</button>`
+                    : ""}
+                  <button type="button" class="btn danger delete-btn"
+                          data-resource="${escapeHtml(resource)}"
+                          data-id="${escapeHtml(row.id)}">Delete</button>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    target.querySelectorAll(".edit-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        openEdit(button.dataset.resource, Number(button.dataset.id));
+      });
+    });
+
+    target.querySelectorAll(".view-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        viewRecord(button.dataset.resource, Number(button.dataset.id));
+      });
+    });
+
+    target.querySelectorAll(".delete-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        del(button.dataset.resource, Number(button.dataset.id));
+      });
+    });
+  }
+
+  function detailField(label, value, wide = false) {
+    return `<div style="padding:10px 0;border-bottom:1px solid var(--bd)${wide ? ";grid-column:1/-1" : ""}">
+      <div style="font-weight:bold;margin-bottom:4px">${escapeHtml(label)}</div>
+      <div style="white-space:pre-wrap">${escapeHtml(value ?? "—")}</div>
+    </div>`;
+  }
+
+  function openDetailModal(title, html) {
+    $("vt").textContent = title;
+    $("vf").innerHTML = html;
+    $("viewModal").classList.add("open");
+  }
+
+  async function viewRecord(resource, id) {
+    if (!id) return;
+    const endpoint = resource === "applications"
+      ? `/api/admin/application-detail?id=${encodeURIComponent(id)}`
+      : `${API}?resource=partnerships&id=${encodeURIComponent(id)}`;
+
+    openDetailModal(
+      resource === "applications" ? "Training Application Details" : "Partnership / CSR Details",
+      "<p>Loading secure details…</p>"
+    );
+
+    try {
+      const result = await request(endpoint);
+      const item = result.item || (Array.isArray(result.items) ? result.items[0] : null);
+      if (!item) throw new Error("Record not found.");
+
+      if (resource === "applications") {
+        const passport = item.passport_data && item.passport_type
+          ? `<div style="padding:10px 0;border-bottom:1px solid var(--bd)"><div style="font-weight:bold;margin-bottom:4px">Passport Photograph</div><img src="${escapeHtml(item.passport_data)}" alt="Applicant passport photograph" style="max-width:180px;max-height:220px;border-radius:8px;object-fit:cover"></div>`
+          : detailField("Passport Photograph", "Not available");
+
+        openDetailModal("Training Application Details", `<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 18px">
+          ${detailField("Application ID", item.id)}
+          ${detailField("Status", item.status)}
+          ${detailField("Full Name", item.full_name)}
+          ${detailField("Email", item.email)}
+          ${detailField("Phone", item.phone)}
+          ${detailField("Training Program", item.preferred_skill)}
+          ${detailField("Date of Birth", item.date_of_birth)}
+          ${detailField("Gender", item.gender)}
+          ${detailField("Address", item.address, true)}
+          ${detailField("Reason for Applying", item.reason || item.message, true)}
+          ${detailField("Submitted", item.created_at)}
+          ${passport}
+        </div>`);
+      } else {
+        openDetailModal("Partnership / CSR Details", `<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 18px">
+          ${detailField("Application ID", item.id)}
+          ${detailField("Status", item.status)}
+          ${detailField("Organization / Company", item.organization_name)}
+          ${detailField("Contact Person", item.contact_name)}
+          ${detailField("Email", item.email)}
+          ${detailField("Phone", item.phone)}
+          ${detailField("Partnership / CSR Type", item.partnership_type)}
+          ${detailField("Proposal / Message", item.message, true)}
+          ${detailField("Submitted", item.created_at)}
+        </div>`);
+      }
+    } catch (error) {
+      if (error.status === 401 || error.status === 403) {
+        $("viewModal").classList.remove("open");
+        window.location.replace("/admin.html");
+        return;
+      }
+      openDetailModal("Unable to Load Details", `<div class="msg err">${escapeHtml(error.message || "Unable to load this record.")}</div>`);
+    }
+  }
+
+  function openEdit(resource, id = null) {
+    const fields = cfg[resource];
+    if (!fields) return;
+
+    const existing = id
+      ? (data[resource] || []).find((row) => Number(row.id) === Number(id))
+      : null;
+
+    editing = { resource, id: id || null };
+
+    els.modalTitle.textContent =
+      `${existing ? "Edit " : "Add "}` +
+      (resource === "training-skills" ? "Training Skill" : resource);
+
+    els.modalFields.innerHTML = fields.map(([key, label, type, required]) => {
+      if (type === "checkbox") {
+        return `
+          <label>
+            <input id="f_${escapeHtml(key)}" type="checkbox">
+            ${escapeHtml(label)}
+          </label>
+        `;
+      }
+
+      const tag = type === "textarea" ? "textarea" : "input";
+      const typeAttr = type === "textarea" ? "" : ` type="${escapeHtml(type)}"`;
+      const requiredAttr = required ? " required" : "";
+
+      return `
+        <label for="f_${escapeHtml(key)}">${escapeHtml(label)}${required ? " *" : ""}</label>
+        <${tag} id="f_${escapeHtml(key)}"${typeAttr}${requiredAttr}></${tag}>
+      `;
+    }).join("");
+
+    fields.forEach(([key]) => {
+      const field = $(`f_${key}`);
+      if (!field) return;
+
+      if (field.type === "checkbox") {
+        field.checked = existing?.[key] === undefined ? true : Boolean(existing[key]);
+      } else if (existing?.[key] != null) {
+        field.value = existing[key];
+      }
+    });
+
+    els.modal.classList.add("open");
+  }
+
+  function closeModal() {
+    els.modal.classList.remove("open");
+    editing = null;
+  }
+
+  async function save() {
+    if (!editing) return;
+
+    const { resource, id } = editing;
+    const fields = cfg[resource];
+    if (!fields) return;
+
+    const body = {};
+
+    for (const [key, , type] of fields) {
+      const field = $(`f_${key}`);
+      if (!field) continue;
+
+      if (field.type === "checkbox") {
+        body[key] = field.checked;
+      } else {
+        body[key] = field.value.trim() || null;
+      }
+    }
+
+    const missingRequired = fields
+      .filter(([, , , required]) => required)
+      .some(([key]) => {
+        const field = $(`f_${key}`);
+        return !field || !String(field.value || "").trim();
+      });
+
+    if (missingRequired) {
+      showMessage("Please complete all required fields.");
+      return;
+    }
+
+    try {
+      await request(
+        `${API}?resource=${encodeURIComponent(resource)}${id ? `&id=${encodeURIComponent(id)}` : ""}`,
+        {
+          method: id ? "PATCH" : "POST",
+          body: JSON.stringify(body)
+        }
+      );
+
+      closeModal();
+      showMessage("Saved successfully.", "ok");
+      await loadAll();
+    } catch (error) {
+      if (error.status === 401) {
+        window.location.replace("/admin.html");
+        return;
+      }
+      showMessage(error.message);
+    }
+  }
+
+  async function del(resource, id) {
+    if (!Number.isFinite(id)) return;
+    if (!window.confirm("Delete this record?")) return;
+
+    try {
+      await request(
+        `${API}?resource=${encodeURIComponent(resource)}&id=${encodeURIComponent(id)}`,
+        { method: "DELETE" }
+      );
+
+      showMessage("Deleted successfully.", "ok");
+      await loadAll();
+    } catch (error) {
+      if (error.status === 401) {
+        window.location.replace("/admin.html");
+        return;
+      }
+      showMessage(error.message);
+    }
+  }
+
+  function money(value) {
+    return "₦" + Number(value || 0).toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function paymentField(label, value) {
+    return `<div style="padding:10px 0;border-bottom:1px solid var(--bd)"><div style="font-weight:bold;margin-bottom:4px">${escapeHtml(label)}</div><div style="white-space:pre-wrap">${escapeHtml(value ?? "—")}</div></div>`;
+  }
+
+  function viewPayment(item) {
+    const donor = [item.first_name, item.last_name].filter(Boolean).join(" ") || item.email || "—";
+    $("paymentView").innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 18px">
+      ${paymentField("Donor", donor)}
+      ${paymentField("Email", item.email)}
+      ${paymentField("Amount", money(item.amount))}
+      ${paymentField("Status", item.status)}
+      ${paymentField("Channel", item.channel)}
+      ${paymentField("Reference", item.reference)}
+      ${paymentField("Paid At", item.paid_at || item.created_at)}
+      ${paymentField("Payment ID", item.id)}
+    </div>`;
+    $("paymentModal").classList.add("open");
+  }
+
+  let paymentRows = [];
+  let recurringRows = [];
+
+  function money(value) {
+    return "₦" + Number(value || 0).toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function paymentField(label, value) {
+    return `<div style="padding:10px 0;border-bottom:1px solid var(--bd)"><div style="font-weight:bold;margin-bottom:4px">${escapeHtml(label)}</div><div style="white-space:pre-wrap">${escapeHtml(value ?? "—")}</div></div>`;
+  }
+
+  function viewPayment(item) {
+    const donor = [item.first_name, item.last_name].filter(Boolean).join(" ") || item.email || "—";
+    $("paymentView").innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 18px">
+      ${paymentField("Donor", donor)}
+      ${paymentField("Email", item.email)}
+      ${paymentField("Phone", item.phone)}
+      ${paymentField("Amount", money(item.amount))}
+      ${paymentField("Status", item.status)}
+      ${paymentField("Channel", item.channel)}
+      ${paymentField("Reference", item.reference)}
+      ${paymentField("Paid At", item.paid_at || item.created_at)}
+      ${paymentField("Plan / Interval", item.plan_name || item.plan || item.interval || item.payment_interval || "One-time")}
+      ${paymentField("Subscription Code", item.subscription_code || item.subscription_code_value)}
+      ${paymentField("Payment ID", item.id)}
+    </div>`;
+    $("paymentModal").classList.add("open");
+  }
+
+  function isRecurring(row) {
+    const text = JSON.stringify(row).toLowerCase();
+    return Boolean(
+      row.subscription_code || row.plan_code || row.subscription || row.recurring === true ||
+      row.interval === "monthly" || row.interval === "quarterly" || row.payment_interval === "monthly" || row.payment_interval === "quarterly" ||
+      text.includes("monthly support") || text.includes("quarterly support") || text.includes("opm-touching-lives-monthly") || text.includes("opm-touching-lives-quarterly")
+    );
+  }
+
+  function recurringStatus(row) {
+    const value = String(row.subscription_status || row.subscriptionStatus || row.status || "").toLowerCase();
+    if (value === "active" || value === "success") return "active";
+    if (value === "non-renewing") return "non-renewing";
+    if (value === "attention") return "attention";
+    return value || "—";
+  }
+
+  function renderRecurring() {
+    const rows = recurringRows;
+    $("recurringCount").textContent = rows.filter(r => recurringStatus(r) === "active").length;
+    $("recurringRecords").textContent = rows.length;
+    if (!rows.length) {
+      $("recurringTable").innerHTML = `<div class="empty-box">No recurring subscription records are currently available through the site's payment endpoint. Use the Paystack Dashboard to view the authoritative live Monthly and Quarterly subscriptions.</div>`;
+      return;
+    }
+    $("recurringTable").innerHTML = `<div class="wrap"><table class="table"><thead><tr><th>Supporter</th><th>Email</th><th>Amount</th><th>Interval</th><th>Status</th><th>Next Payment</th><th>Reference / Subscription</th></tr></thead><tbody>${rows.map(row => {
+      const donor = [row.first_name,row.last_name].filter(Boolean).join(" ") || row.email || "—";
+      const interval = row.interval || row.payment_interval || row.plan_name || row.plan || "—";
+      const status = recurringStatus(row);
+      const cls = status === "active" ? "status-pill status-active" : "status-pill";
+      return `<tr><td>${escapeHtml(donor)}</td><td>${escapeHtml(row.email || "—")}</td><td>${money(row.amount)}</td><td>${escapeHtml(interval)}</td><td><span class="${cls}">${escapeHtml(status)}</span></td><td>${escapeHtml(row.next_payment_date || row.next_payment || row.next_charge_date || "—")}</td><td>${escapeHtml(row.subscription_code || row.reference || "—")}</td></tr>`;
+    }).join("")}</tbody></table></div>`;
+  }
+
+  function filteredPayments() {
+    const q = String($("paymentSearch").value || "").trim().toLowerCase();
+    const status = String($("paymentStatus").value || "").toLowerCase();
+    return paymentRows.filter(row => {
+      const hay = [row.first_name,row.last_name,row.email,row.reference,row.channel,row.status].filter(Boolean).join(" ").toLowerCase();
+      return (!q || hay.includes(q)) && (!status || String(row.status || "").toLowerCase() === status);
+    });
+  }
+
+  function renderPayments() {
+    const rows = filteredPayments();
+    if (!rows.length) {
+      $("paymentsTable").innerHTML = '<div class="empty-box">No payment records match the current filters.</div>';
+      return;
+    }
+    $("paymentsTable").innerHTML = `<div class="wrap"><table class="table"><thead><tr><th>Date</th><th>Donor</th><th>Amount</th><th>Status</th><th>Channel</th><th>Reference</th><th>Actions</th></tr></thead><tbody>${rows.map((row,index) => {
+      const status=String(row.status||"").toLowerCase();
+      const cls=status==="success"?"status-pill status-success":status==="failed"||status==="reversed"?"status-pill status-failed":"status-pill";
+      return `<tr><td>${escapeHtml(row.paid_at || row.created_at || "—")}</td><td>${escapeHtml([row.first_name,row.last_name].filter(Boolean).join(" ") || row.email || "—")}<br><span class="small">${escapeHtml(row.email || "")}</span></td><td><strong>${money(row.amount)}</strong></td><td><span class="${cls}">${escapeHtml(row.status || "—")}</span></td><td>${escapeHtml(row.channel || "—")}</td><td>${escapeHtml(row.reference || "—")}</td><td><button type="button" class="btn secondary payment-view" data-index="${index}">View</button></td></tr>`;
+    }).join("")}</tbody></table></div>`;
+    $("paymentsTable").querySelectorAll(".payment-view").forEach(button => button.addEventListener("click", () => viewPayment(rows[Number(button.dataset.index)])));
+  }
+
+  function csvCell(value) {
+    const s = String(value ?? "").replace(/"/g, '""');
+    return `"${s}"`;
+  }
+
+  function downloadCsv(filename, rows, columns) {
+    if (!rows.length) { showDonationMessage("There are no records to export."); return; }
+    const csv = [columns.map(c => csvCell(c.label)).join(","), ...rows.map(row => columns.map(c => csvCell(typeof c.value === "function" ? c.value(row) : row[c.key])).join(","))].join("\n");
+    const blob = new Blob(["\ufeff" + csv], {type:"text/csv;charset=utf-8;"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  }
+
+  function showDonationMessage(text, type="err") {
+    const el=$("donationMsg"); el.className=`msg ${type}`; el.textContent=text;
+  }
+
+  async function loadPayments() {
+    showDonationMessage("Loading donation records…", "ok");
+    try {
+      const limit = Number($("paymentLimit").value || 200);
+      const result = await request(`/api/admin/payments?limit=${encodeURIComponent(limit)}`);
+      paymentRows = Array.isArray(result.items) ? result.items : [];
+      recurringRows = paymentRows.filter(isRecurring);
+      const successful = paymentRows.filter(row => String(row.status || "").toLowerCase() === "success");
+      $("payCount").textContent = successful.length;
+      $("payTotal").textContent = money(successful.reduce((sum,row) => sum + Number(row.amount || 0),0));
+      renderPayments();
+      renderRecurring();
+      showDonationMessage(`Loaded ${paymentRows.length} payment record${paymentRows.length===1?"":"s"}.`, "ok");
+    } catch (error) {
+      if (error.status === 401 || error.status === 403) { window.location.replace("/admin.html"); return; }
+      $("payCount").textContent="—"; $("payTotal").textContent="—"; $("recurringCount").textContent="—"; $("recurringRecords").textContent="—";
+      $("paymentsTable").innerHTML='<div class="empty-box">Unable to load payment history.</div>';
+      $("recurringTable").innerHTML='<div class="empty-box">Unable to load recurring-support records.</div>';
+      showDonationMessage(error.message || "Unable to load donation records.");
+    }
+  }
+
+  async function checkSession() {
+    try {
+      await request("/api/admin/me");
+      setLoggedInUI();
+      buildNavigation("dashboard");
+      await loadAll();
+    } catch (error) {
+      if (error.status === 401 || error.status === 403) {
+        setLoggedOutUI();
+        showLoginMessage("");
+        els.username.focus();
+        return;
+      }
+
+      setLoggedOutUI();
+      showLoginMessage("Unable to verify the admin session. Please try again.");
+    }
+  }
+
+  // Wire up events without relying on global element variables.
+  els.loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    login();
+  });
+
+  els.side.querySelector(".logout").addEventListener("click", logout);
+
+  els.modal.querySelector(".secondary").addEventListener("click", closeModal);
+  els.modal.querySelector(".primary").addEventListener("click", save);
+  $("viewClose").addEventListener("click", () => $("viewModal").classList.remove("open"));
+  $("viewModal").addEventListener("click", e => { if(e.target === $("viewModal")) $("viewModal").classList.remove("open"); });
+  $("paymentModal").addEventListener("click", e => { if(e.target === $("paymentModal")) $("paymentModal").classList.remove("open"); });
+  $("paymentClose").addEventListener("click", () => $("paymentModal").classList.remove("open"));
+  $("refreshPayments").addEventListener("click", loadPayments);
+  $("paymentSearch").addEventListener("input", renderPayments);
+  $("paymentStatus").addEventListener("change", renderPayments);
+  $("paymentLimit").addEventListener("change", loadPayments);
+
+  const paymentColumns = [
+    {label:"Date", key:"paid_at"},
+    {label:"Donor", value:r=>[r.first_name,r.last_name].filter(Boolean).join(" ")},
+    {label:"Email", key:"email"},
+    {label:"Phone", key:"phone"},
+    {label:"Amount", key:"amount"},
+    {label:"Status", key:"status"},
+    {label:"Channel", key:"channel"},
+    {label:"Reference", key:"reference"}
+  ];
+  const recurringColumns = [
+    {label:"Supporter", value:r=>[r.first_name,r.last_name].filter(Boolean).join(" ")},
+    {label:"Email", key:"email"},
+    {label:"Amount", key:"amount"},
+    {label:"Interval", value:r=>r.interval||r.payment_interval||r.plan_name||r.plan},
+    {label:"Status", value:r=>recurringStatus(r)},
+    {label:"Next Payment", value:r=>r.next_payment_date||r.next_payment||r.next_charge_date},
+    {label:"Subscription Code", value:r=>r.subscription_code||r.reference}
+  ];
+  $("exportPayments").addEventListener("click",()=>downloadCsv("opm-uyo-touching-lives-payment-history.csv",filteredPayments(),paymentColumns));
+  $("exportPayments2").addEventListener("click",()=>downloadCsv("opm-uyo-touching-lives-payment-history.csv",filteredPayments(),paymentColumns));
+  $("exportRecurring").addEventListener("click",()=>downloadCsv("opm-uyo-touching-lives-recurring-supporters.csv",recurringRows,recurringColumns));
+
+  // Mobile sidebar toggle.
+  els.mainToggle = document.querySelector(".main .top .secondary");
+  if (els.mainToggle) {
+    els.mainToggle.addEventListener("click", () => {
+      els.side.classList.toggle("open");
+    });
+  }
+
+  // Wire add/create buttons. These used to rely on inline onclick handlers,
+  // but this script is intentionally scoped inside an IIFE.
+  document.querySelectorAll("[data-action=\"add\"][data-resource]").forEach((button) => {
+    button.addEventListener("click", () => openEdit(button.dataset.resource));
+  });
+
+  // Start from the server's actual session state.
+  checkSession();
+})();
+</script>
+</body></html>
 
